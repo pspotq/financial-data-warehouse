@@ -1,0 +1,171 @@
+<SEC-DOCUMENT>0002160312-26-000001.txt : 20261028
+<SEC-HEADER>0002160312-26-000001.hdr.sgml : 20261028
+<ACCEPTANCE-DATETIME>20261028093315
+ACCESSION NUMBER:		0002160312-26-000001
+CONFORMED SUBMISSION TYPE:	D
+PUBLIC DOCUMENT COUNT:		1
+ITEM INFORMATION:		Rule 506(b) provides a "safer harbor" for a private offering
+FILED AS OF DATE:		20261028
+DATE AS OF CHANGE:		20261028
+EFFECTIVENESS DATE:		20261028
+
+FILER:
+
+	COMPANY DATA:	
+		COMPANY CONFORMED NAME:			4PG Trailer Fund LLC
+		CENTRAL INDEX KEY:			0002160312
+		ORGANIZATION NAME:           	
+		EIN:				432153691
+		STATE OF INCORPORATION:			FL
+		FISCAL YEAR END:			1231
+
+	FILING VALUES:
+		FORM TYPE:		D
+		SEC ACT:		1933 Act
+		SEC FILE NUMBER:	021-602738
+		FILM NUMBER:		261493144
+
+	BUSINESS ADDRESS:	
+		STREET 1:		824 HIGHLAND AVE UNIT 204
+		CITY:			ORLANDO
+		STATE:			FL
+		ZIP:			32803
+		BUSINESS PHONE:		407-808-6686
+
+	MAIL ADDRESS:	
+		STREET 1:		824 HIGHLAND AVE UNIT 204
+		CITY:			ORLANDO
+		STATE:			FL
+		ZIP:			32803
+</SEC-HEADER>
+<DOCUMENT>
+<TYPE>D
+<SEQUENCE>1
+<FILENAME>primary_doc.xml
+<TEXT>
+<XML>
+<?xml version="1.0"?>
+<edgarSubmission>
+
+    <schemaVersion>X0708</schemaVersion>
+
+    <submissionType>D</submissionType>
+
+    <testOrLive>LIVE</testOrLive>
+
+    <primaryIssuer>
+        <cik>0002160312</cik>
+        <entityName>4PG Trailer Fund LLC</entityName>
+        <issuerAddress>
+            <street1>824 HIGHLAND AVE UNIT 204</street1>
+            <city>ORLANDO</city>
+            <stateOrCountry>FL</stateOrCountry>
+            <stateOrCountryDescription>FLORIDA</stateOrCountryDescription>
+            <zipCode>32803</zipCode>
+        </issuerAddress>
+        <issuerPhoneNumber>407-808-6686</issuerPhoneNumber>
+        <jurisdictionOfInc>FLORIDA</jurisdictionOfInc>
+        <issuerPreviousNameList>
+            <value>None</value>
+        </issuerPreviousNameList>
+        <edgarPreviousNameList>
+            <value>None</value>
+        </edgarPreviousNameList>
+        <entityType>Limited Liability Company</entityType>
+        <yearOfInc>
+            <withinFiveYears>true</withinFiveYears>
+            <value>2026</value>
+        </yearOfInc>
+    </primaryIssuer>
+
+    <relatedPersonsList>
+        <relatedPersonInfo>
+            <relatedPersonName>
+                <firstName>Jason</firstName>
+                <lastName>Driskel</lastName>
+            </relatedPersonName>
+            <relatedPersonAddress>
+                <street1>824 Highland Ave Unit 204</street1>
+                <city>Orlando</city>
+                <stateOrCountry>FL</stateOrCountry>
+                <stateOrCountryDescription>FLORIDA</stateOrCountryDescription>
+                <zipCode>32803</zipCode>
+            </relatedPersonAddress>
+            <relatedPersonRelationshipList>
+                <relationship>Director</relationship>
+            </relatedPersonRelationshipList>
+            <relationshipClarification></relationshipClarification>
+        </relatedPersonInfo>
+    </relatedPersonsList>
+
+    <offeringData>
+        <industryGroup>
+            <industryGroupType>Business Services</industryGroupType>
+        </industryGroup>
+        <issuerSize>
+            <revenueRange>Decline to Disclose</revenueRange>
+        </issuerSize>
+        <federalExemptionsExclusions>
+            <item>06b</item>
+        </federalExemptionsExclusions>
+        <typeOfFiling>
+            <newOrAmendment>
+                <isAmendment>false</isAmendment>
+            </newOrAmendment>
+            <dateOfFirstSale>
+                <value>2026-10-16</value>
+            </dateOfFirstSale>
+        </typeOfFiling>
+        <durationOfOffering>
+            <moreThanOneYear>false</moreThanOneYear>
+        </durationOfOffering>
+        <typesOfSecuritiesOffered>
+            <isEquityType>true</isEquityType>
+        </typesOfSecuritiesOffered>
+        <businessCombinationTransaction>
+            <isBusinessCombinationTransaction>false</isBusinessCombinationTransaction>
+            <clarificationOfResponse></clarificationOfResponse>
+        </businessCombinationTransaction>
+        <minimumInvestmentAccepted>0</minimumInvestmentAccepted>
+        <salesCompensationList></salesCompensationList>
+        <offeringSalesAmounts>
+            <totalOfferingAmount>725000</totalOfferingAmount>
+            <totalAmountSold>725000</totalAmountSold>
+            <totalRemaining>0</totalRemaining>
+            <clarificationOfResponse></clarificationOfResponse>
+        </offeringSalesAmounts>
+        <investors>
+            <hasNonAccreditedInvestors>false</hasNonAccreditedInvestors>
+            <totalNumberAlreadyInvested>8</totalNumberAlreadyInvested>
+        </investors>
+        <salesCommissionsFindersFees>
+            <salesCommissions>
+                <dollarAmount>0</dollarAmount>
+            </salesCommissions>
+            <findersFees>
+                <dollarAmount>0</dollarAmount>
+            </findersFees>
+            <clarificationOfResponse></clarificationOfResponse>
+        </salesCommissionsFindersFees>
+        <useOfProceeds>
+            <grossProceedsUsed>
+                <dollarAmount>0</dollarAmount>
+            </grossProceedsUsed>
+            <clarificationOfResponse></clarificationOfResponse>
+        </useOfProceeds>
+        <signatureBlock>
+            <authorizedRepresentative>false</authorizedRepresentative>
+            <signature>
+                <issuerName>4PG Trailer Fund LLC</issuerName>
+                <signatureName>Ingram Weber</signatureName>
+                <nameOfSigner>Ingram Weber</nameOfSigner>
+                <signatureTitle>Authorized Signatory</signatureTitle>
+                <signatureDate>2026-10-28</signatureDate>
+            </signature>
+        </signatureBlock>
+    </offeringData>
+</edgarSubmission>
+</XML>
+</TEXT>
+</DOCUMENT>
+</SEC-DOCUMENT>

@@ -1,0 +1,16 @@
+# Offline checks on every push and pull request: compile every file, then the parser tests (no network, no BigQuery).
+# The production deploy pipeline (Workload Identity Federation, per-subject Cloud Run jobs, Cloud Scheduler) is in
+# deploy/deploy.yml for reference; it runs from the private repo that holds the GCP bindings.
+name: ci
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r cloud/feeds/requirements.txt pytest lxml
+      - run: python -m compileall -q cloud warehouse tests
+      - run: python -m pytest -q tests

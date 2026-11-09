@@ -1,0 +1,3 @@
+name: rrp_alert_red
+description: rrp-markets hourly alert check found something RED (or the check failed)
+filter: 'resource.type="cloud_run_job" AND resource.labels.job_name="rrp-markets" AND (jsonPayload.rrp_alert="red" OR jsonPayload.rrp_alert="check_failed")'

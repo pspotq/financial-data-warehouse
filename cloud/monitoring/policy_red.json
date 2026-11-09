@@ -1,0 +1,36 @@
+{
+  "displayName": "RRP: something is RED",
+  "combiner": "OR",
+  "enabled": true,
+  "conditions": [
+    {
+      "displayName": "rrp_alert_red > 0",
+      "conditionThreshold": {
+        "filter": "metric.type=\"logging.googleapis.com/user/rrp_alert_red\" AND resource.type=\"cloud_run_job\"",
+        "aggregations": [
+          {
+            "alignmentPeriod": "600s",
+            "perSeriesAligner": "ALIGN_SUM",
+            "crossSeriesReducer": "REDUCE_SUM"
+          }
+        ],
+        "comparison": "COMPARISON_GT",
+        "thresholdValue": 0,
+        "duration": "0s",
+        "trigger": {
+          "count": 1
+        }
+      }
+    }
+  ],
+  "notificationChannels": [
+    "CHANNEL"
+  ],
+  "documentation": {
+    "content": "The hourly check in rrp-markets found a RED item. Open Logs Explorer for rrp-markets (search rrp_alert) to see which, or read rrp.alerts.",
+    "mimeType": "text/markdown"
+  },
+  "alertStrategy": {
+    "autoClose": "10800s"
+  }
+}

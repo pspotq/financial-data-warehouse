@@ -1,0 +1,68 @@
+<ownershipDocument>
+    <schemaVersion>X0609</schemaVersion>
+    <documentType>4</documentType>
+    <periodOfReport>2026-10-15</periodOfReport>
+    <notSubjectToSection16>0</notSubjectToSection16>
+    <issuer>
+        <issuerCik>0001731388</issuerCik>
+        <issuerName>EuroDry Ltd.</issuerName>
+        <issuerTradingSymbol>EDRY</issuerTradingSymbol>
+    </issuer>
+    <reportingOwner>
+        <reportingOwnerId>
+            <rptOwnerCik>0002127484</rptOwnerCik>
+            <rptOwnerName>Pittas Aristeidis P</rptOwnerName>
+        </reportingOwnerId>
+        <reportingOwnerRelationship>
+            <isDirector>1</isDirector>
+            <isOfficer>0</isOfficer>
+            <isTenPercentOwner>0</isTenPercentOwner>
+            <isOther>0</isOther>
+        </reportingOwnerRelationship>
+    </reportingOwner>
+    <aff10b5One>0</aff10b5One>
+    <nonDerivativeTable>
+        <nonDerivativeTransaction>
+            <securityTitle><value>Common stock</value></securityTitle>
+            <transactionDate><value>2026-10-15</value></transactionDate>
+            <transactionCoding>
+                <transactionFormType>4</transactionFormType>
+                <transactionCode>P</transactionCode>
+                <equitySwapInvolved>0</equitySwapInvolved>
+            </transactionCoding>
+            <transactionAmounts>
+                <transactionShares><value>300</value><footnoteId id="F1"/></transactionShares>
+                <transactionPricePerShare><value>48.1682</value></transactionPricePerShare>
+                <transactionAcquiredDisposedCode><value>A</value></transactionAcquiredDisposedCode>
+            </transactionAmounts>
+            <postTransactionAmounts><sharesOwnedFollowingTransaction><value>77088</value></sharesOwnedFollowingTransaction></postTransactionAmounts>
+            <ownershipNature>
+                <directOrIndirectOwnership><value>I</value></directOrIndirectOwnership>
+                <natureOfOwnership><value>Family United Navigation Co.</value></natureOfOwnership>
+            </ownershipNature>
+        </nonDerivativeTransaction>
+        <nonDerivativeTransaction>
+            <securityTitle><value>Common stock</value></securityTitle>
+            <transactionDate><value>2026-10-15</value></transactionDate>
+            <transactionCoding>
+                <transactionFormType>4</transactionFormType>
+                <transactionCode>P</transactionCode>
+                <equitySwapInvolved>0</equitySwapInvolved>
+            </transactionCoding>
+            <transactionAmounts>
+                <transactionShares><value>300</value><footnoteId id="F2"/></transactionShares>
+                <transactionPricePerShare><value>48.1682</value></transactionPricePerShare>
+                <transactionAcquiredDisposedCode><value>A</value></transactionAcquiredDisposedCode>
+            </transactionAmounts>
+            <postTransactionAmounts><sharesOwnedFollowingTransaction><value>77088</value></sharesOwnedFollowingTransaction></postTransactionAmounts>
+            <ownershipNature>
+                <directOrIndirectOwnership><value>I</value></directOrIndirectOwnership>
+                <natureOfOwnership><value>Family United Navigation Co.</value></natureOfOwnership>
+            </ownershipNature>
+        </nonDerivativeTransaction>
+    </nonDerivativeTable>
+    <footnotes>
+        <footnote id="F1">The Reporting Person owns a 25% interest and has effective control over voting and disposition of the shares owned by Family United Navigation Co.</footnote>
+        <footnote id="F2">The Reporting person's spouse owns 25% interest and has effective control over voting and disposition of the shares owned by Family United Navigation Co.</footnote>
+    </footnotes>
+</ownershipDocument>

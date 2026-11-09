@@ -1,0 +1,309 @@
+<SEC-DOCUMENT>0001717977-22-000008.txt : 20221027
+<SEC-HEADER>0001717977-22-000008.hdr.sgml : 20221027
+<ACCEPTANCE-DATETIME>20221027140555
+ACCESSION NUMBER:		0001717977-22-000008
+CONFORMED SUBMISSION TYPE:	13F-HR
+PUBLIC DOCUMENT COUNT:		2
+CONFORMED PERIOD OF REPORT:	20220930
+FILED AS OF DATE:		20221027
+DATE AS OF CHANGE:		20221027
+EFFECTIVENESS DATE:		20221027
+
+FILER:
+
+	COMPANY DATA:	
+		COMPANY CONFORMED NAME:			AMS Capital Ltda
+		CENTRAL INDEX KEY:			0001717977
+		IRS NUMBER:				000000000
+		STATE OF INCORPORATION:			D5
+		FISCAL YEAR END:			1231
+
+	FILING VALUES:
+		FORM TYPE:		13F-HR
+		SEC ACT:		1934 Act
+		SEC FILE NUMBER:	028-18296
+		FILM NUMBER:		221336603
+
+	BUSINESS ADDRESS:	
+		STREET 1:		AV. BRIGADEIRO FARIA LIMA 2277
+		STREET 2:		10TH FLOOR
+		CITY:			SAO PAULO
+		STATE:			D5
+		ZIP:			01452000
+		BUSINESS PHONE:		551130386400
+
+	MAIL ADDRESS:	
+		STREET 1:		AV. BRIGADEIRO FARIA LIMA 2277
+		STREET 2:		10TH FLOOR
+		CITY:			SAO PAULO
+		STATE:			D5
+		ZIP:			01452000
+</SEC-HEADER>
+<DOCUMENT>
+<TYPE>13F-HR
+<SEQUENCE>1
+<FILENAME>primary_doc.xml
+<TEXT>
+<XML>
+<?xml version="1.0" encoding="UTF-8"?>
+<edgarSubmission xmlns="http://www.sec.gov/edgar/thirteenffiler" xmlns:com="http://www.sec.gov/edgar/common">
+  <headerData>
+    <submissionType>13F-HR</submissionType>
+    <filerInfo>
+      <liveTestFlag>LIVE</liveTestFlag>
+      <flags>
+        <confirmingCopyFlag>false</confirmingCopyFlag>
+        <returnCopyFlag>true</returnCopyFlag>
+        <overrideInternetFlag>false</overrideInternetFlag>
+      </flags>
+      <filer>
+        <credentials>
+          <cik>0001717977</cik>
+          <ccc>XXXXXXXX</ccc>
+        </credentials>
+      </filer>
+      <periodOfReport>09-30-2022</periodOfReport>
+    </filerInfo>
+  </headerData>
+  <formData>
+    <coverPage>
+      <reportCalendarOrQuarter>09-30-2022</reportCalendarOrQuarter>
+      <filingManager>
+        <name>AMS Capital Ltda</name>
+        <address>
+          <com:street1>AV. BRIGADEIRO FARIA LIMA 2277</com:street1>
+          <com:street2>10TH FLOOR</com:street2>
+          <com:city>SAO PAULO</com:city>
+          <com:stateOrCountry>D5</com:stateOrCountry>
+          <com:zipCode>01452000</com:zipCode>
+        </address>
+      </filingManager>
+      <reportType>13F HOLDINGS REPORT</reportType>
+      <form13FFileNumber>028-18296</form13FFileNumber>
+      <provideInfoForInstruction5>N</provideInfoForInstruction5>
+    </coverPage>
+    <signatureBlock>
+      <name>GUILHERME FIGUEIREDO</name>
+      <title>OFFICER</title>
+      <phone>551130386416</phone>
+      <signature>GUILHERME FIGUEIREDO</signature>
+      <city>SAO PAULO</city>
+      <stateOrCountry>D5</stateOrCountry>
+      <signatureDate>10-27-2022</signatureDate>
+    </signatureBlock>
+    <summaryPage>
+      <otherIncludedManagersCount>0</otherIncludedManagersCount>
+      <tableEntryTotal>12</tableEntryTotal>
+      <tableValueTotal>158118</tableValueTotal>
+      <isConfidentialOmitted>false</isConfidentialOmitted>
+    </summaryPage>
+  </formData>
+</edgarSubmission>
+</XML>
+</TEXT>
+</DOCUMENT>
+<DOCUMENT>
+<TYPE>INFORMATION TABLE
+<SEQUENCE>2
+<FILENAME>FILEAMS09302022V1.xml
+<TEXT>
+<XML>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns1:informationTable xmlns:ns1="http://www.sec.gov/edgar/document/thirteenf/informationtable">
+	<ns1:infoTable>
+		<ns1:nameOfIssuer>CANADIAN PAC RY LTD</ns1:nameOfIssuer>
+		<ns1:titleOfClass>COM</ns1:titleOfClass>
+		<ns1:cusip>13645T100</ns1:cusip>
+		<ns1:value>4011</ns1:value>
+		<ns1:shrsOrPrnAmt>
+			<ns1:sshPrnamt>54814</ns1:sshPrnamt>
+			<ns1:sshPrnamtType>SH</ns1:sshPrnamtType>
+		</ns1:shrsOrPrnAmt>
+		<ns1:investmentDiscretion>SOLE</ns1:investmentDiscretion>
+		<ns1:votingAuthority>
+			<ns1:Sole>54814</ns1:Sole>
+			<ns1:Shared>0</ns1:Shared>
+			<ns1:None>0</ns1:None>
+		</ns1:votingAuthority>
+	</ns1:infoTable>
+	<ns1:infoTable>
+		<ns1:nameOfIssuer>DIAGEO PLC</ns1:nameOfIssuer>
+		<ns1:titleOfClass>SPON ADR NEW</ns1:titleOfClass>
+		<ns1:cusip>25243Q205</ns1:cusip>
+		<ns1:value>12332</ns1:value>
+		<ns1:shrsOrPrnAmt>
+			<ns1:sshPrnamt>73495</ns1:sshPrnamt>
+			<ns1:sshPrnamtType>SH</ns1:sshPrnamtType>
+		</ns1:shrsOrPrnAmt>
+		<ns1:investmentDiscretion>SOLE</ns1:investmentDiscretion>
+		<ns1:votingAuthority>
+			<ns1:Sole>73495</ns1:Sole>
+			<ns1:Shared>0</ns1:Shared>
+			<ns1:None>0</ns1:None>
+		</ns1:votingAuthority>
+	</ns1:infoTable>
+	<ns1:infoTable>
+		<ns1:nameOfIssuer>DOLLAR GEN CORP NEW</ns1:nameOfIssuer>
+		<ns1:titleOfClass>COM</ns1:titleOfClass>
+		<ns1:cusip>256677105</ns1:cusip>
+		<ns1:value>21461</ns1:value>
+		<ns1:shrsOrPrnAmt>
+			<ns1:sshPrnamt>85645</ns1:sshPrnamt>
+			<ns1:sshPrnamtType>SH</ns1:sshPrnamtType>
+		</ns1:shrsOrPrnAmt>
+		<ns1:investmentDiscretion>SOLE</ns1:investmentDiscretion>
+		<ns1:votingAuthority>
+			<ns1:Sole>85645</ns1:Sole>
+			<ns1:Shared>0</ns1:Shared>
+			<ns1:None>0</ns1:None>
+		</ns1:votingAuthority>
+	</ns1:infoTable>
+	<ns1:infoTable>
+		<ns1:nameOfIssuer>DANAHER CORPORATION</ns1:nameOfIssuer>
+		<ns1:titleOfClass>COM</ns1:titleOfClass>
+		<ns1:cusip>235851102</ns1:cusip>
+		<ns1:value>6187</ns1:value>
+		<ns1:shrsOrPrnAmt>
+			<ns1:sshPrnamt>24380</ns1:sshPrnamt>
+			<ns1:sshPrnamtType>SH</ns1:sshPrnamtType>
+		</ns1:shrsOrPrnAmt>
+		<ns1:investmentDiscretion>SOLE</ns1:investmentDiscretion>
+		<ns1:votingAuthority>
+			<ns1:Sole>24380</ns1:Sole>
+			<ns1:Shared>0</ns1:Shared>
+			<ns1:None>0</ns1:None>
+		</ns1:votingAuthority>
+	</ns1:infoTable>
+	<ns1:infoTable>
+		<ns1:nameOfIssuer>MASTERCARD INCORPORATED</ns1:nameOfIssuer>
+		<ns1:titleOfClass>CL A</ns1:titleOfClass>
+		<ns1:cusip>57636Q104</ns1:cusip>
+		<ns1:value>10008</ns1:value>
+		<ns1:shrsOrPrnAmt>
+			<ns1:sshPrnamt>31324</ns1:sshPrnamt>
+			<ns1:sshPrnamtType>SH</ns1:sshPrnamtType>
+		</ns1:shrsOrPrnAmt>
+		<ns1:investmentDiscretion>SOLE</ns1:investmentDiscretion>
+		<ns1:votingAuthority>
+			<ns1:Sole>31324</ns1:Sole>
+			<ns1:Shared>0</ns1:Shared>
+			<ns1:None>0</ns1:None>
+		</ns1:votingAuthority>
+	</ns1:infoTable>
+	<ns1:infoTable>
+		<ns1:nameOfIssuer>MICROSOFT CORP</ns1:nameOfIssuer>
+		<ns1:titleOfClass>COM</ns1:titleOfClass>
+		<ns1:cusip>594918104</ns1:cusip>
+		<ns1:value>3818</ns1:value>
+		<ns1:shrsOrPrnAmt>
+			<ns1:sshPrnamt>16506</ns1:sshPrnamt>
+			<ns1:sshPrnamtType>SH</ns1:sshPrnamtType>
+		</ns1:shrsOrPrnAmt>
+		<ns1:investmentDiscretion>SOLE</ns1:investmentDiscretion>
+		<ns1:votingAuthority>
+			<ns1:Sole>16506</ns1:Sole>
+			<ns1:Shared>0</ns1:Shared>
+			<ns1:None>0</ns1:None>
+		</ns1:votingAuthority>
+	</ns1:infoTable>
+	<ns1:infoTable>
+		<ns1:nameOfIssuer>NU HLDGS LTD</ns1:nameOfIssuer>
+		<ns1:titleOfClass>ORD SHS CL A</ns1:titleOfClass>
+		<ns1:cusip>G6683N103</ns1:cusip>
+		<ns1:value>15146</ns1:value>
+		<ns1:shrsOrPrnAmt>
+			<ns1:sshPrnamt>3450000</ns1:sshPrnamt>
+			<ns1:sshPrnamtType>SH</ns1:sshPrnamtType>
+		</ns1:shrsOrPrnAmt>
+		<ns1:investmentDiscretion>SOLE</ns1:investmentDiscretion>
+		<ns1:votingAuthority>
+			<ns1:Sole>3450000</ns1:Sole>
+			<ns1:Shared>0</ns1:Shared>
+			<ns1:None>0</ns1:None>
+		</ns1:votingAuthority>
+	</ns1:infoTable>
+	<ns1:infoTable>
+		<ns1:nameOfIssuer>S&amp;P GLOBAL INC</ns1:nameOfIssuer>
+		<ns1:titleOfClass>COM</ns1:titleOfClass>
+		<ns1:cusip>78409V104</ns1:cusip>
+		<ns1:value>9422</ns1:value>
+		<ns1:shrsOrPrnAmt>
+			<ns1:sshPrnamt>30245</ns1:sshPrnamt>
+			<ns1:sshPrnamtType>SH</ns1:sshPrnamtType>
+		</ns1:shrsOrPrnAmt>
+		<ns1:investmentDiscretion>SOLE</ns1:investmentDiscretion>
+		<ns1:votingAuthority>
+			<ns1:Sole>30245</ns1:Sole>
+			<ns1:Shared>0</ns1:Shared>
+			<ns1:None>0</ns1:None>
+		</ns1:votingAuthority>
+	</ns1:infoTable>
+	<ns1:infoTable>
+		<ns1:nameOfIssuer>SUZANO S A</ns1:nameOfIssuer>
+		<ns1:titleOfClass>SPON ADS</ns1:titleOfClass>
+		<ns1:cusip>86959K105</ns1:cusip>
+		<ns1:value>31481</ns1:value>
+		<ns1:shrsOrPrnAmt>
+			<ns1:sshPrnamt>3212333</ns1:sshPrnamt>
+			<ns1:sshPrnamtType>SH</ns1:sshPrnamtType>
+		</ns1:shrsOrPrnAmt>
+		<ns1:investmentDiscretion>SOLE</ns1:investmentDiscretion>
+		<ns1:votingAuthority>
+			<ns1:Sole>3212333</ns1:Sole>
+			<ns1:Shared>0</ns1:Shared>
+			<ns1:None>0</ns1:None>
+		</ns1:votingAuthority>
+	</ns1:infoTable>
+	<ns1:infoTable>
+		<ns1:nameOfIssuer>VALE S A</ns1:nameOfIssuer>
+		<ns1:titleOfClass>SPONSORED ADS</ns1:titleOfClass>
+		<ns1:cusip>91912E105</ns1:cusip>
+		<ns1:value>25162</ns1:value>
+		<ns1:shrsOrPrnAmt>
+			<ns1:sshPrnamt>1831300</ns1:sshPrnamt>
+			<ns1:sshPrnamtType>SH</ns1:sshPrnamtType>
+		</ns1:shrsOrPrnAmt>
+		<ns1:investmentDiscretion>SOLE</ns1:investmentDiscretion>
+		<ns1:votingAuthority>
+			<ns1:Sole>1831300</ns1:Sole>
+			<ns1:Shared>0</ns1:Shared>
+			<ns1:None>0</ns1:None>
+		</ns1:votingAuthority>
+	</ns1:infoTable>
+	<ns1:infoTable>
+		<ns1:nameOfIssuer>SPDR SER TR</ns1:nameOfIssuer>
+		<ns1:titleOfClass>S&amp;P BIOTECH</ns1:titleOfClass>
+		<ns1:cusip>78464A870</ns1:cusip>
+		<ns1:value>19080</ns1:value>
+		<ns1:shrsOrPrnAmt>
+			<ns1:sshPrnamt>232905</ns1:sshPrnamt>
+			<ns1:sshPrnamtType>SH</ns1:sshPrnamtType>
+		</ns1:shrsOrPrnAmt>
+		<ns1:investmentDiscretion>SOLE</ns1:investmentDiscretion>
+		<ns1:votingAuthority>
+			<ns1:Sole>232905</ns1:Sole>
+			<ns1:Shared>0</ns1:Shared>
+			<ns1:None>0</ns1:None>
+		</ns1:votingAuthority>
+	</ns1:infoTable>
+	<ns1:infoTable>
+		<ns1:nameOfIssuer>YANDEX N V</ns1:nameOfIssuer>
+		<ns1:titleOfClass>SHS CLASS A</ns1:titleOfClass>
+		<ns1:cusip>N97284108</ns1:cusip>
+		<ns1:value>10</ns1:value>
+		<ns1:shrsOrPrnAmt>
+			<ns1:sshPrnamt>100000</ns1:sshPrnamt>
+			<ns1:sshPrnamtType>SH</ns1:sshPrnamtType>
+		</ns1:shrsOrPrnAmt>
+		<ns1:investmentDiscretion>SOLE</ns1:investmentDiscretion>
+		<ns1:votingAuthority>
+			<ns1:Sole>100000</ns1:Sole>
+			<ns1:Shared>0</ns1:Shared>
+			<ns1:None>0</ns1:None>
+		</ns1:votingAuthority>
+	</ns1:infoTable>
+</ns1:informationTable>
+</XML>
+</TEXT>
+</DOCUMENT>
+</SEC-DOCUMENT>

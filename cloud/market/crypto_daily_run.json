@@ -1,0 +1,1 @@
+{"overrides": {"containerOverrides": [{"args": ["python", "main.py", "--crypto-daily"]}], "timeout": "3600s"}}

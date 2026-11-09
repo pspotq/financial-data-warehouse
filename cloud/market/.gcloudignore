@@ -1,0 +1,4 @@
+__pycache__/
+*.pyc
+deploy.ps1
+README.md

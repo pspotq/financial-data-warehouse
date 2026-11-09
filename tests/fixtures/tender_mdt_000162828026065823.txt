@@ -1,0 +1,155 @@
+SC TO-I/A
+1
+mdt-amendedno4scheduleissu.htm
+SC TO-I/A
+
+UNITED STATES
+
+SECURITIES AND EXCHANGE COMMISSION
+
+Washington, D.C. 20549
+
+SCHEDULE TO
+
+(Amendment No. 4)
+
+(Rule 14d-100)
+
+TENDER OFFER STATEMENT UNDER SECTION 14(D)(1) OR 13(E)(1)
+
+OF THE SECURITIES EXCHANGE ACT OF 1934
+
+MEDTRONIC PLC
+
+(Name of Subject Company (Issuer) and Filing Person (Offeror))
+
+Ordinary Shares, par value $0.0001 per share
+
+(Title of Class of Securities)
+
+G5960L103
+
+(CUSIP Number of Class of Securities)
+
+Brian Sandstrom, Esq.
+
+Assistant Secretary
+
+c/o Medtronic, Inc.
+
+710 Medtronic Parkway
+
+Minneapolis, Minnesota 55432
+
++1 (763) 514-4000
+
+(Name, address and telephone number of person authorized to receive notices and communications on behalf of filing persons)
+
+Copies to:
+
+Adam E. Fleisher
+
+Kimberly R. Spoerri
+
+Synne D. Chapman
+
+Cleary Gottlieb Steen & Hamilton LLP
+
+One Liberty Plaza
+
+New York, NY 10006
+
+(212) 225-2000
+
+☐
+
+Check the box if the filing relates solely to preliminary communications made before the commencement of a tender offer.
+
+Check the appropriate boxes below to designate any transaction to which the statement relates:
+
+☐
+
+third party tender offer subject to Rule 14d-1.
+
+☒
+
+issuer tender offer subject to Rule 13e-4.
+
+☐
+
+going private transaction subject to Rule 13e-3.
+
+☐
+
+amendment to Schedule 13D under Rule 13d-2.
+
+Check the following box if the filing is a final amendment reporting the results of the tender offer: ☒
+
+If applicable, check the appropriate box(es) below to designate the appropriate rule provision(s) relied upon:
+
+☐
+
+Rule 13e-4(i) (Cross-Border Issuer Tender Offer)
+
+☐
+
+Rule 14d-1(d) (Cross-Border Third-Party Tender Offer)
+
+This Amendment No. 4 (this “Amendment”) amends and supplements the Issuer Tender Offer Statement on Schedule TO filed by Medtronic plc, an Irish public limited company (“Medtronic”), with the Securities and Exchange Commission (the “SEC”) on September 14, 2026, as amended by Amendment No. 1 to the Issuer Tender Offer Statement on Schedule TO, filed with the SEC on September 17, 2026, Amendment No. 2 to the Issuer Tender Offer Statement on Schedule TO, filed with the SEC on October 8, 2026, and Amendment No. 3 to the Issuer Tender Offer Statement on Schedule TO, filed with the SEC on October 13, 2026 (as so amended, the “Schedule TO”). This Amendment is the final amendment to the Schedule TO and reports the final results of the Exchange Offer (as defined below).
+
+This Amendment relates to the offer by Medtronic to exchange up to an aggregate of 225,361,295 newly issued shares of common stock of MiniMed Group, Inc., a Delaware corporation (“MiniMed”), par value $0.01 per share (“MiniMed Common Stock”), representing approximately 80.1% of the outstanding shares of MiniMed Common Stock as of September 3, 2026, for outstanding ordinary shares of Medtronic, par value $0.0001 per share (“Medtronic Ordinary Shares”), upon the terms and subject to the conditions set forth in the Prospectus, dated as of October 5, 2026 (the “Prospectus”), the Letter of Transmittal and the Instruction Booklet to the Letter of Transmittal, copies of which are attached to the Schedule TO as Exhibits (a)(1)(i), (a)(1)(ii) and (a)(1)(iii), respectively (which, together with any amendments or supplements thereto, collectively constitute the “Exchange Offer”). Under the terms of the Exchange Offer, if the Exchange Offer is oversubscribed, Medtronic may, without extending the Exchange Offer period, exchange up to an additional 27,452,053 shares of MiniMed Common Stock, which amount constitutes all of Medtronic’s remaining interest in MiniMed, for an additional number of Medtronic Ordinary Shares that were validly tendered and not validly withdrawn not to exceed two percent of the total outstanding Medtronic Ordinary Shares (the “De Minimis Increase Amount”), pursuant to Rule 13e-4(f)(1)(ii) and Rule 14e-1(b) under the Securities Exchange Act of 1934, as amended (the “Exchange Act”).
+
+In connection with the Exchange Offer, MiniMed has filed with the SEC under the Securities Act of 1933, as amended, a registration statement on Form S-4 (Registration No. 333-298914) (the “Registration Statement”) to register newly issued shares of MiniMed Common Stock offered in exchange for Medtronic Ordinary Shares tendered in the Exchange Offer.
+
+As permitted by General Instruction F to Schedule TO, the information set forth in the Prospectus, the Letter of Transmittal and the Instruction Booklet to the Letter of Transmittal, copies of which are attached to this Schedule TO as Exhibits (a)(1)(i), (a)(1)(ii) and (a)(1)(iii), respectively, is incorporated herein by reference in response to all the items of this Schedule TO, except as otherwise set forth below. Except as specifically provided herein, this Amendment No. 4 does not modify any of the information previously reported on the Schedule TO.
+
+Item 4. Terms of the Transaction.
+
+Item 4(a) of the Schedule TO, which incorporates by reference the information contained in the Exchange Offer, is hereby amended and supplemented by adding the following thereto:
+
+(a)Material Terms.
+
+The Exchange Offer expired at 12:00 midnight, New York City time, at the end of the day on October 9, 2026. Medtronic elected to accept an additional 5,975,762 Medtronic Ordinary Shares, not exceeding the De Minimis Increase Amount, in exchange for an additional 27,452,053 shares of MiniMed Common Stock. Accordingly, Medtronic accepted an aggregate of 55,032,401 Medtronic Ordinary Shares in exchange for 252,813,348 newly issued shares of MiniMed Common Stock. As a result, Medtronic disposed of all of its remaining interest in MiniMed. Because the Exchange Offer was oversubscribed, Medtronic accepted only a portion of the Medtronic Ordinary Shares that were validly tendered and not validly withdrawn, on a pro rata basis in proportion to the number of shares tendered, except for qualifying odd-lot tenders. Shareholders who beneficially owned fewer than 100 Medtronic Ordinary Shares, or an “odd-lot,” and validly tendered all of their shares are not subject to proration, in accordance with the terms of the Exchange Offer. All shares validly tendered by eligible odd-lot shareholders
+
+1
+
+have been accepted. The final proration factor applied to tendered Medtronic Ordinary Shares subject to proration of 18.289133% was applied to all other validly tendered Medtronic Ordinary Shares to determine the number of such shares that were accepted.
+
+Based on the final count by the exchange agent, Equiniti Trust Company, LLC, the results of the Exchange
+
+Offer are as follows:
+
+Total number of Medtronic Ordinary Shares validly tendered | 297,521,390
+
+Shares validly tendered that are subject to proration | 296,763,500
+
+Odd-lot shares validly tendered that are not subject to proration | 757,890
+
+Total number of Medtronic Ordinary Shares accepted | 55,032,401
+
+On October 14, 2026, Medtronic issued a press release announcing the final results of the Exchange Offer, a copy of which is attached as Exhibit (a)(4)(xxxv) hereto and is incorporated herein by reference.
+
+Item 12. Exhibits.
+
+Item 12 of the Schedule TO is hereby amended and supplemented by adding the following thereto:
+
+Exhibit Number | Exhibit Description
+
+(a)(4)(xxxv)
+Press Release by Medtronic plc, dated October 14, 2026, announcing the final results of the Exchange Offer (incorporated by reference to Medtronic plc’s Form 425 filing with the SEC on October 14, 2026).
+
+2
+
+SIGNATURE
+
+After due inquiry and to the best of my knowledge and belief, I certify that the information set forth in this statement is true, complete and correct.
+
+Medtronic plc
+
+Date: October 14, 2026 | By: | /s/ Brian Sandstrom
+
+Name: | Brian Sandstrom
+
+Title: | Assistant Secretary & Vice President, Chief Corporate and Securities Counsel
+
+3

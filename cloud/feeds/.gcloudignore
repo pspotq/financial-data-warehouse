@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+deploy.ps1
+README.md
+_bulk/
+form4_bulk.py

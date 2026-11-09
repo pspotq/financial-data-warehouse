@@ -1,0 +1,272 @@
+# Push-to-deploy (b245, added 2026-10-27). On every push to main:
+#   1. test    - offline parser tests (tests/), no network, no BigQuery. A failure stops everything below.
+#   2. deploy  - only the parts whose files changed:
+#        cloud/feeds/**   -> Cloud Run job rrp-sec     (feeds code, RRP_SUBJECT=sec: everything SEC; dataset sec)
+#        cloud/market/**  -> Cloud Run job rrp-markets (market code, RRP_SUBJECT=markets; dataset markets)
+#        either, or cloud/gov/** -> Cloud Run job rrp-gov (both, RRP_SUBJECT=gov: CFTC, DoD, war.gov, Treasury, EIA, NOAA; dataset gov)
+#        warehouse/**     -> python warehouse/build.py (rebuilds every view; deletes views no longer defined)
+# One ingest job per subject since the rebuild (b252, 2026-10-29); they replace rrp-feeds / rrp-market, whose schedulers
+# the "cutover" run pauses (the old jobs stay deployed, unscheduled, until the new ones have run clean).
+# Manual "cutover" (or "schedules"): deploy all three, create / update their Cloud Schedulers, pause the old ones.
+# Google auth: Workload Identity Federation (tools/setup_github_deploy.ps1) - no keys are stored in GitHub.
+# Manual run: Actions tab -> deploy -> Run workflow (choose what to deploy).
+name: deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      what:
+        description: "What to deploy"
+        type: choice
+        options: [changed, sec, markets, gov, ingest, warehouse, all, schedules, cutover, none]
+        default: changed
+      run_job:
+        description: "Then execute a job once (one-off backfills)"
+        type: choice
+        options: [none, rrp-sec, rrp-markets, rrp-gov, rrp-markets-equities, rrp-markets-daily]
+        default: none
+      run_args:
+        description: "Arguments for that run, e.g. --edgar-index-only --edgar-index-days 30"
+        type: string
+        default: ""
+      run_timeout:
+        description: "Task timeout in seconds for that run; over 3600 the run starts without waiting (long backfills)"
+        type: string
+        default: "3600"
+
+concurrency:
+  group: deploy-main
+  cancel-in-progress: false
+
+env:
+  PROJECT: rrp-technologies
+  REGION: us-central1
+  RUNTIME_SA: rrp-ingest@rrp-technologies.iam.gserviceaccount.com
+  # images are built on the GitHub runner and pushed here (not Cloud Build: the deployer cannot act as Cloud Build's
+  # service account, and building here keeps the build log in the GitHub run)
+  REGISTRY: us-central1-docker.pkg.dev/rrp-technologies/cloud-run-source-deploy
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -q pytest jinja2==3.1.4 -r cloud/feeds/requirements.txt -r cloud/market/requirements.txt
+      - name: compile every Python file
+        run: python -m compileall -q cloud warehouse tests
+      - name: parser tests
+        run: pytest -q tests
+
+  deploy:
+    needs: test
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: changed
+        with:
+          filters: |
+            sec:
+              - 'cloud/feeds/**'
+            markets:
+              - 'cloud/market/**'
+            gov:
+              - 'cloud/feeds/**'
+              - 'cloud/market/**'
+              - 'cloud/gov/**'
+            warehouse:
+              - 'warehouse/**'
+      - name: decide
+        id: plan
+        run: |
+          W="${{ inputs.what }}"; [ -z "$W" ] && W=changed
+          out() { echo "$1=$2" >> "$GITHUB_OUTPUT"; }
+          for part in sec markets gov warehouse; do
+            v=false
+            case "$W" in
+              all) v=true ;;
+              changed) case "$part" in sec) v="${{ steps.changed.outputs.sec }}" ;; markets) v="${{ steps.changed.outputs.markets }}" ;;
+                         gov) v="${{ steps.changed.outputs.gov }}" ;; warehouse) v="${{ steps.changed.outputs.warehouse }}" ;; esac ;;
+              ingest|cutover|schedules) [ "$part" != warehouse ] && v=true ;;
+              "$part") v=true ;;
+            esac
+            out "$part" "$v"
+          done
+          [ "$W" = cutover ] || [ "$W" = schedules ] && out schedules true || out schedules false
+          cat "$GITHUB_OUTPUT"
+      - uses: google-github-actions/auth@v2
+        if: steps.plan.outputs.sec == 'true' || steps.plan.outputs.markets == 'true' || steps.plan.outputs.gov == 'true' || steps.plan.outputs.warehouse == 'true' || (inputs.run_job != '' && inputs.run_job != 'none')
+        with:
+          workload_identity_provider: projects/1070977791744/locations/global/workloadIdentityPools/github/providers/github-repo
+          service_account: github-deployer@rrp-technologies.iam.gserviceaccount.com
+      - uses: google-github-actions/setup-gcloud@v2
+        if: steps.plan.outputs.sec == 'true' || steps.plan.outputs.markets == 'true' || steps.plan.outputs.gov == 'true' || (inputs.run_job != '' && inputs.run_job != 'none')
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: deploy rrp-sec
+        if: steps.plan.outputs.sec == 'true'
+        working-directory: cloud/feeds
+        run: |
+          set -o pipefail
+          IMG="$REGISTRY/rrp-sec:${GITHUB_SHA::12}"
+          gcloud auth configure-docker "${REGION}-docker.pkg.dev" --quiet
+          docker build -q -t "$IMG" .
+          # smoke test: the image must import its entry point (a module missing from the image stops every run)
+          docker run --rm -e RRP_PROJECT=smoke "$IMG" python -c "import main" || { echo "::error title=rrp-sec image broken::main.py does not import inside the image"; exit 1; }
+          docker push -q "$IMG"
+          gcloud run jobs deploy rrp-sec --image "$IMG" --project "$PROJECT" --region "$REGION" --service-account "$RUNTIME_SA" \
+            --tasks 1 --max-retries 1 --task-timeout 3600 --memory 1Gi --cpu 1 --set-env-vars "RRP_PROJECT=$PROJECT,RRP_SUBJECT=sec" --quiet 2>&1 | tee "$RUNNER_TEMP/deploy.log" \
+            || { echo "::error title=rrp-sec deploy failed::$(tail -c 3000 "$RUNNER_TEMP/deploy.log" | tr '\n' ' ')"; exit 1; }
+      - name: deploy rrp-markets
+        if: steps.plan.outputs.markets == 'true'
+        working-directory: cloud/market
+        run: |
+          set -o pipefail
+          IMG="$REGISTRY/rrp-markets:${GITHUB_SHA::12}"
+          gcloud auth configure-docker "${REGION}-docker.pkg.dev" --quiet
+          docker build -q -t "$IMG" . && docker push -q "$IMG"
+          gcloud run jobs deploy rrp-markets --image "$IMG" --project "$PROJECT" --region "$REGION" --service-account "$RUNTIME_SA" \
+            --tasks 1 --max-retries 1 --task-timeout 600 --memory 512Mi --cpu 1 --set-env-vars "RRP_PROJECT=$PROJECT,RRP_SUBJECT=markets" \
+            --quiet 2>&1 | tee "$RUNNER_TEMP/deploy.log" \
+            || { echo "::error title=rrp-markets deploy failed::$(tail -c 3000 "$RUNNER_TEMP/deploy.log" | tr '\n' ' ')"; exit 1; }
+          # the two daily passes are their own job definitions on the same image with fixed arguments, so their schedulers
+          # need no argument overrides (overrides need run.developer on the job, which the deployer cannot grant)
+          for V in "rrp-markets-equities:--equities-only" "rrp-markets-daily:--crypto-daily"; do
+            N="${V%%:*}"; F="${V#*:}"
+            gcloud run jobs deploy "$N" --image "$IMG" --project "$PROJECT" --region "$REGION" --service-account "$RUNTIME_SA" \
+              --tasks 1 --max-retries 1 --task-timeout 3600 --memory 1Gi --cpu 1 --set-env-vars "RRP_PROJECT=$PROJECT,RRP_SUBJECT=markets" \
+              --command python --args "main.py,$F" --quiet 2>&1 | tee "$RUNNER_TEMP/deploy.log" \
+              || { echo "::error title=$N deploy failed::$(tail -c 3000 "$RUNNER_TEMP/deploy.log" | tr '\n' ' ')"; exit 1; }
+          done
+      - name: deploy rrp-gov
+        if: steps.plan.outputs.gov == 'true'
+        working-directory: cloud
+        run: |
+          set -o pipefail
+          IMG="$REGISTRY/rrp-gov:${GITHUB_SHA::12}"
+          gcloud auth configure-docker "${REGION}-docker.pkg.dev" --quiet
+          docker build -q -f gov/Dockerfile -t "$IMG" . && docker push -q "$IMG"
+          gcloud run jobs deploy rrp-gov --image "$IMG" --project "$PROJECT" --region "$REGION" --service-account "$RUNTIME_SA" \
+            --tasks 1 --max-retries 1 --task-timeout 3600 --memory 1Gi --cpu 1 --set-env-vars "RRP_PROJECT=$PROJECT,RRP_SUBJECT=gov" \
+            --set-secrets "EIA_API_KEY=eia-api-key:latest" --quiet 2>&1 | tee "$RUNNER_TEMP/deploy.log" \
+            || { echo "::error title=rrp-gov deploy failed::$(tail -c 3000 "$RUNNER_TEMP/deploy.log" | tr '\n' ' ')"; exit 1; }
+      - name: schedules (the subject jobs' schedulers, phone-alert metrics; old rrp-feeds / rrp-market removed)
+        if: steps.plan.outputs.schedules == 'true'
+        run: |
+          set +e   # every command reports through say(); the step fails at the end if any did
+          L=(--project "$PROJECT" --location "$REGION")
+          FAIL=0
+          say() {   # run a command; its outcome becomes a run annotation
+            local title="$1"; shift
+            if OUT=$("$@" 2>&1); then echo "::notice title=$title::ok"; else
+              echo "::error title=$title::$(echo "$OUT" | tail -c 1500 | tr '\n' ' ')"; FAIL=1; return 1; fi
+          }
+          sched() {   # name, cron (UTC), job, optional body file
+            local URI="https://run.googleapis.com/v2/projects/$PROJECT/locations/$REGION/jobs/$3:run"
+            local A=("${L[@]}" --schedule "$2" --time-zone Etc/UTC --uri "$URI" --http-method POST --oauth-service-account-email "$RUNTIME_SA"
+                     --max-retry-attempts 3 --min-backoff 60s --max-backoff 300s --max-retry-duration 900s --quiet)
+            if gcloud scheduler jobs describe "$1" "${L[@]}" >/dev/null 2>&1; then
+              [ -n "$4" ] && A+=(--message-body-from-file "$4" --update-headers "Content-Type=application/json")
+              say "scheduler $1 update" gcloud scheduler jobs update http "$1" "${A[@]}" && \
+                { gcloud scheduler jobs resume "$1" "${L[@]}" --quiet >/dev/null 2>&1 || true; }
+            else
+              [ -n "$4" ] && A+=(--message-body-from-file "$4" --headers "Content-Type=application/json")
+              say "scheduler $1 create" gcloud scheduler jobs create http "$1" "${A[@]}"
+            fi
+          }
+          # new schedulers first; the old ones are paused only if every new one is in place (never both off)
+          sched rrp-sec-hourly "5 * * * *" rrp-sec
+          sched rrp-markets-30m "*/30 * * * *" rrp-markets
+          sched rrp-markets-equities "20 22 * * 1-5" rrp-markets-equities
+          sched rrp-markets-crypto-daily "15 0 * * *" rrp-markets-daily
+          sched rrp-gov-hourly "25 * * * *" rrp-gov
+          if [ "$FAIL" = 0 ]; then
+            # retired Oct 30 after a clean first day on the new jobs: the old schedulers and the rrp-feeds / rrp-market jobs go
+            for OLD in rrp-feeds-hourly rrp-market-15m rrp-market-equities rrp-market-crypto-daily; do
+              if gcloud scheduler jobs describe "$OLD" "${L[@]}" >/dev/null 2>&1; then
+                say "delete scheduler $OLD" gcloud scheduler jobs delete "$OLD" "${L[@]}" --quiet
+              fi
+            done
+            for OLD in rrp-feeds rrp-market; do
+              if gcloud run jobs describe "$OLD" --project "$PROJECT" --region "$REGION" >/dev/null 2>&1; then
+                say "delete job $OLD" gcloud run jobs delete "$OLD" --project "$PROJECT" --region "$REGION" --quiet
+              fi
+            done
+          else
+            echo "::error title=cutover incomplete::a new scheduler failed, so the old rrp-feeds / rrp-market schedulers were left running"
+            for N in rrp-sec-hourly rrp-markets-30m rrp-markets-equities rrp-markets-crypto-daily rrp-gov-hourly; do
+              gcloud scheduler jobs pause "$N" "${L[@]}" --quiet >/dev/null 2>&1 || true
+            done
+          fi
+          # phone alerts: the log-based metrics watch rrp-markets, whose 30-min run does the alert check (deployer has
+          # roles/logging.configWriter since Oct 29). The rrp-market alert bridge that stood in during the cutover goes.
+          for M in rrp_alert_red:metric_red.yaml rrp_heartbeat:metric_heartbeat.yaml; do
+            say "metric ${M%%:*}" gcloud logging metrics update "${M%%:*}" --project "$PROJECT" --config-from-file="cloud/monitoring/${M#*:}" --quiet
+          done
+          if gcloud scheduler jobs describe rrp-market-alert-bridge "${L[@]}" >/dev/null 2>&1; then
+            say "delete rrp-market-alert-bridge" gcloud scheduler jobs delete rrp-market-alert-bridge "${L[@]}" --quiet
+          fi
+          gcloud scheduler jobs list "${L[@]}" --format='value(name.basename(),schedule,state,retryConfig.retryCount)' \
+            | while IFS=$'\t' read -r n sc st rc; do echo "::notice title=scheduler $n::$sc $st retries=$rc"; done
+          exit $FAIL
+      - name: create missing tables (feeds / market --setup; existing tables are left alone)
+        if: steps.plan.outputs.sec == 'true' || steps.plan.outputs.markets == 'true'
+        run: |
+          pip install -q -r cloud/feeds/requirements.txt
+          if [ "${{ steps.plan.outputs.sec }}" = "true" ]; then (cd cloud/feeds && RRP_PROJECT=$PROJECT python main.py --setup); fi
+          if [ "${{ steps.plan.outputs.markets }}" = "true" ]; then (cd cloud/market && RRP_PROJECT=$PROJECT python main.py --setup); fi
+      - name: build warehouse views
+        if: steps.plan.outputs.warehouse == 'true'
+        working-directory: warehouse
+        run: |
+          pip install -q google-cloud-bigquery==3.27.0
+          echo "{\"project\": \"$PROJECT\"}" > config.json
+          set -o pipefail
+          python build.py 2>&1 | tee build.log || { echo "::error title=build.py failed::$(tail -c 3000 build.log | tr '\n' ' ')"; exit 1; }
+      - name: run a job once
+        if: inputs.run_job != '' && inputs.run_job != 'none'
+        run: |
+          set -o pipefail
+          ENTRY=main.py; [ "${{ inputs.run_job }}" = rrp-gov ] && ENTRY=run.py
+          ARGS="python,$ENTRY$(for a in ${{ inputs.run_args }}; do printf ',%s' "$a"; done)"
+          TO="${{ inputs.run_timeout }}"; [ -z "$TO" ] && TO=3600
+          WAIT="--wait"; [ "$TO" -gt 3600 ] && WAIT="--async"
+          gcloud run jobs execute "${{ inputs.run_job }}" --project "$PROJECT" --region "$REGION" --args "$ARGS" --task-timeout "$TO" $WAIT 2>&1 | tee "$RUNNER_TEMP/run.log" \
+            || { echo "::error title=${{ inputs.run_job }} run failed::$(tail -c 3000 "$RUNNER_TEMP/run.log" | tr '\n' ' ')"; exit 1; }
+
+  log:
+    # one row per workflow run in ops.deploys, for the cockpit's System flow (machinery strip)
+    needs: [test, deploy]
+    if: always() && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: projects/1070977791744/locations/global/workloadIdentityPools/github/providers/github-repo
+          service_account: github-deployer@rrp-technologies.iam.gserviceaccount.com
+      - uses: google-github-actions/setup-gcloud@v2
+      - name: write the run to ops.deploys
+        run: |
+          bq --project_id=rrp-technologies show ops.deploys >/dev/null 2>&1 || \
+            bq --project_id=rrp-technologies mk --table --time_partitioning_field ts --time_partitioning_type MONTH \
+              --description "One row per GitHub Actions run of deploy.yml" \
+              ops.deploys ts:TIMESTAMP,workflow:STRING,event:STRING,sha:STRING,result:STRING,detail:STRING,run_url:STRING
+          bq --project_id=rrp-technologies query --use_legacy_sql=false --quiet \
+            "INSERT INTO \`rrp-technologies.ops.deploys\` (ts, workflow, event, sha, result, detail, run_url)
+             VALUES (CURRENT_TIMESTAMP(), '${{ github.workflow }}', '${{ github.event_name }}', '${{ github.sha }}', '${{ needs.deploy.result == 'skipped' && needs.test.result || needs.deploy.result }}',
+                     'what=${{ inputs.what }} run_job=${{ inputs.run_job }}', 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}')"

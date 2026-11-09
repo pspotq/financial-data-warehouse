@@ -1,0 +1,90 @@
+<ownershipDocument>
+    <schemaVersion>X0609</schemaVersion>
+    <documentType>4</documentType>
+    <periodOfReport>2026-10-21</periodOfReport>
+    <issuer>
+        <issuerCik>0001439222</issuerCik>
+        <issuerName>AGIOS PHARMACEUTICALS, INC.</issuerName>
+        <issuerTradingSymbol>AGIO</issuerTradingSymbol>
+    </issuer>
+    <reportingOwner>
+        <reportingOwnerId>
+            <rptOwnerCik>0001881190</rptOwnerCik>
+            <rptOwnerName>Gheuens Sarah</rptOwnerName>
+        </reportingOwnerId>
+        <reportingOwnerRelationship>
+            <isDirector>0</isDirector>
+            <isOfficer>1</isOfficer>
+            <isTenPercentOwner>0</isTenPercentOwner>
+            <isOther>0</isOther>
+            <officerTitle>Chief Medical Officer</officerTitle>
+        </reportingOwnerRelationship>
+    </reportingOwner>
+    <aff10b5One>1</aff10b5One>
+    <nonDerivativeTable>
+        <nonDerivativeTransaction>
+            <securityTitle><value>Common stock</value></securityTitle>
+            <transactionDate><value>2026-10-21</value></transactionDate>
+            <transactionCoding><transactionFormType>4</transactionFormType><transactionCode>M</transactionCode><equitySwapInvolved>0</equitySwapInvolved></transactionCoding>
+            <transactionAmounts>
+                <transactionShares><value>1489</value></transactionShares>
+                <transactionPricePerShare><value>25.01</value></transactionPricePerShare>
+                <transactionAcquiredDisposedCode><value>A</value></transactionAcquiredDisposedCode>
+            </transactionAmounts>
+            <postTransactionAmounts><sharesOwnedFollowingTransaction><value>56134</value></sharesOwnedFollowingTransaction></postTransactionAmounts>
+            <ownershipNature><directOrIndirectOwnership><value>D</value></directOrIndirectOwnership></ownershipNature>
+        </nonDerivativeTransaction>
+        <nonDerivativeTransaction>
+            <securityTitle><value>Common stock</value></securityTitle>
+            <transactionDate><value>2026-10-21</value></transactionDate>
+            <transactionCoding><transactionFormType>4</transactionFormType><transactionCode>S</transactionCode><equitySwapInvolved>0</equitySwapInvolved><footnoteId id="F1"/></transactionCoding>
+            <transactionAmounts>
+                <transactionShares><value>1489</value></transactionShares>
+                <transactionPricePerShare><value>37.53</value><footnoteId id="F2"/></transactionPricePerShare>
+                <transactionAcquiredDisposedCode><value>D</value></transactionAcquiredDisposedCode>
+            </transactionAmounts>
+            <postTransactionAmounts><sharesOwnedFollowingTransaction><value>54645</value></sharesOwnedFollowingTransaction></postTransactionAmounts>
+            <ownershipNature><directOrIndirectOwnership><value>D</value></directOrIndirectOwnership></ownershipNature>
+        </nonDerivativeTransaction>
+        <nonDerivativeTransaction>
+            <securityTitle><value>Common stock</value></securityTitle>
+            <transactionDate><value>2026-10-22</value></transactionDate>
+            <transactionCoding><transactionFormType>4</transactionFormType><transactionCode>M</transactionCode><equitySwapInvolved>0</equitySwapInvolved></transactionCoding>
+            <transactionAmounts>
+                <transactionShares><value>500</value></transactionShares>
+                <transactionPricePerShare><value>25.01</value></transactionPricePerShare>
+                <transactionAcquiredDisposedCode><value>A</value></transactionAcquiredDisposedCode>
+            </transactionAmounts>
+            <postTransactionAmounts><sharesOwnedFollowingTransaction><value>55145</value></sharesOwnedFollowingTransaction></postTransactionAmounts>
+            <ownershipNature><directOrIndirectOwnership><value>D</value></directOrIndirectOwnership></ownershipNature>
+        </nonDerivativeTransaction>
+        <nonDerivativeTransaction>
+            <securityTitle><value>Common stock</value></securityTitle>
+            <transactionDate><value>2026-10-22</value></transactionDate>
+            <transactionCoding><transactionFormType>4</transactionFormType><transactionCode>S</transactionCode><equitySwapInvolved>0</equitySwapInvolved><footnoteId id="F1"/></transactionCoding>
+            <transactionAmounts>
+                <transactionShares><value>500</value></transactionShares>
+                <transactionPricePerShare><value>37.52</value></transactionPricePerShare>
+                <transactionAcquiredDisposedCode><value>D</value></transactionAcquiredDisposedCode>
+            </transactionAmounts>
+            <postTransactionAmounts><sharesOwnedFollowingTransaction><value>54645</value></sharesOwnedFollowingTransaction></postTransactionAmounts>
+            <ownershipNature><directOrIndirectOwnership><value>D</value></directOrIndirectOwnership></ownershipNature>
+        </nonDerivativeTransaction>
+    </nonDerivativeTable>
+    <derivativeTable>
+        <derivativeTransaction>
+            <securityTitle><value>Stock options (right to buy)</value></securityTitle>
+            <transactionDate><value>2026-10-21</value></transactionDate>
+            <transactionCoding><transactionFormType>4</transactionFormType><transactionCode>M</transactionCode><equitySwapInvolved>0</equitySwapInvolved></transactionCoding>
+            <transactionAmounts>
+                <transactionShares><value>1489</value></transactionShares>
+                <transactionPricePerShare><value>0</value></transactionPricePerShare>
+                <transactionAcquiredDisposedCode><value>D</value></transactionAcquiredDisposedCode>
+            </transactionAmounts>
+        </derivativeTransaction>
+    </derivativeTable>
+    <footnotes>
+        <footnote id="F1">This sale was effected pursuant to a Rule 10b5-1 trading plan adopted by the reporting person.</footnote>
+        <footnote id="F2">The price reported is the weighted average of the shares sold. The shares were sold at varying prices in the range of $37.52 to $37.55.</footnote>
+    </footnotes>
+</ownershipDocument>

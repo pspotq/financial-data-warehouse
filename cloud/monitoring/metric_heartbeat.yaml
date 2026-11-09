@@ -1,0 +1,3 @@
+name: rrp_heartbeat
+description: rrp-markets hourly alert check ran
+filter: 'resource.type="cloud_run_job" AND resource.labels.job_name="rrp-markets" AND jsonPayload.rrp_heartbeat=1'

@@ -1,0 +1,34 @@
+{
+  "displayName": "RRP: health check stopped",
+  "combiner": "OR",
+  "enabled": true,
+  "conditions": [
+    {
+      "displayName": "no rrp_heartbeat for 2 hours",
+      "conditionAbsent": {
+        "filter": "metric.type=\"logging.googleapis.com/user/rrp_heartbeat\" AND resource.type=\"cloud_run_job\"",
+        "aggregations": [
+          {
+            "alignmentPeriod": "3600s",
+            "perSeriesAligner": "ALIGN_SUM",
+            "crossSeriesReducer": "REDUCE_SUM"
+          }
+        ],
+        "duration": "7200s",
+        "trigger": {
+          "count": 1
+        }
+      }
+    }
+  ],
+  "notificationChannels": [
+    "CHANNEL"
+  ],
+  "documentation": {
+    "content": "The hourly alert check has not logged for 2 hours: rrp-markets is not running (scheduler, deploy or quota). Check Cloud Run > Jobs > rrp-markets.",
+    "mimeType": "text/markdown"
+  },
+  "alertStrategy": {
+    "autoClose": "10800s"
+  }
+}

@@ -1,0 +1,9 @@
+# local config and caches
+warehouse/config.json
+warehouse/seed/
+cloud/feeds/_bulk/
+__pycache__/
+*.pyc
+.env
+site/dist/
+site/data.json

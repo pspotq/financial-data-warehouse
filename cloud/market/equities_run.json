@@ -1,0 +1,1 @@
+{"overrides": {"containerOverrides": [{"args": ["python", "main.py", "--equities-only"]}], "timeout": "3600s"}}

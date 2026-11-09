@@ -1,0 +1,39 @@
+{
+  "displayName": "RRP: a Cloud Run job failed",
+  "combiner": "OR",
+  "enabled": true,
+  "conditions": [
+    {
+      "displayName": "failed job executions",
+      "conditionThreshold": {
+        "filter": "metric.type=\"run.googleapis.com/job/completed_execution_count\" AND resource.type=\"cloud_run_job\" AND metric.labels.result=\"failed\"",
+        "aggregations": [
+          {
+            "alignmentPeriod": "300s",
+            "perSeriesAligner": "ALIGN_SUM",
+            "crossSeriesReducer": "REDUCE_SUM",
+            "groupByFields": [
+              "resource.labels.job_name"
+            ]
+          }
+        ],
+        "comparison": "COMPARISON_GT",
+        "thresholdValue": 0,
+        "duration": "0s",
+        "trigger": {
+          "count": 1
+        }
+      }
+    }
+  ],
+  "notificationChannels": [
+    "CHANNEL"
+  ],
+  "documentation": {
+    "content": "A Cloud Run job execution failed (the job name is in the incident). Cloud Run > Jobs > the job > Executions shows the log.",
+    "mimeType": "text/markdown"
+  },
+  "alertStrategy": {
+    "autoClose": "3600s"
+  }
+}

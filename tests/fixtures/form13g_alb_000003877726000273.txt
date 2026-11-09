@@ -1,0 +1,416 @@
+<SEC-DOCUMENT>0000038777-26-000273.txt : 20261028
+<SEC-HEADER>0000038777-26-000273.hdr.sgml : 20261028
+<ACCEPTANCE-DATETIME>20261028130209
+ACCESSION NUMBER:		0000038777-26-000273
+CONFORMED SUBMISSION TYPE:	SCHEDULE 13G
+PUBLIC DOCUMENT COUNT:		1
+FILED AS OF DATE:		20261028
+DATE AS OF CHANGE:		20261028
+
+SUBJECT COMPANY:	
+
+	COMPANY DATA:	
+		COMPANY CONFORMED NAME:			ALBEMARLE CORP
+		CENTRAL INDEX KEY:			0000915913
+		STANDARD INDUSTRIAL CLASSIFICATION:	PLASTICS, MATERIALS, SYNTH RESINS & NONVULCAN ELASTOMERS [2821]
+		ORGANIZATION NAME:           	08 Industrial Applications and Services
+		EIN:				541692118
+		STATE OF INCORPORATION:			VA
+		FISCAL YEAR END:			1231
+
+	FILING VALUES:
+		FORM TYPE:		SCHEDULE 13G
+		SEC ACT:		1934 Act
+		SEC FILE NUMBER:	005-44053
+		FILM NUMBER:		261494519
+
+	BUSINESS ADDRESS:	
+		STREET 1:		4250 CONGRESS STREET
+		STREET 2:		SUITE 900
+		CITY:			CHARLOTTE
+		STATE:			NC
+		ZIP:			28209
+		BUSINESS PHONE:		980-299-5700
+
+	MAIL ADDRESS:	
+		STREET 1:		4250 CONGRESS STREET
+		STREET 2:		SUITE 900
+		CITY:			CHARLOTTE
+		STATE:			NC
+		ZIP:			28209
+
+	FORMER COMPANY:	
+		FORMER CONFORMED NAME:	ECHEM INC
+		DATE OF NAME CHANGE:	19931208
+
+FILED BY:		
+
+	COMPANY DATA:	
+		COMPANY CONFORMED NAME:			FRANKLIN TEMPLETON INC
+		CENTRAL INDEX KEY:			0000038777
+		STANDARD INDUSTRIAL CLASSIFICATION:	INVESTMENT ADVICE [6282]
+		ORGANIZATION NAME:           	02 Finance
+		EIN:				132670991
+		STATE OF INCORPORATION:			DE
+		FISCAL YEAR END:			0930
+
+	FILING VALUES:
+		FORM TYPE:		SCHEDULE 13G
+
+	BUSINESS ADDRESS:	
+		STREET 1:		ONE FRANKLIN PARKWAY
+		STREET 2:		LEGAL-FT SECRETARY
+		CITY:			SAN MATEO
+		STATE:			CA
+		BUSINESS PHONE:		650-312-2000
+
+	MAIL ADDRESS:	
+		STREET 1:		ONE FRANKLIN PARKWAY
+		CITY:			SAN MATEO
+		STATE:			CA
+		ZIP:			94403
+
+	FORMER COMPANY:	
+		FORMER CONFORMED NAME:	FRANKLIN RESOURCES INC
+		DATE OF NAME CHANGE:	19920703
+</SEC-HEADER>
+<DOCUMENT>
+<TYPE>SCHEDULE 13G
+<SEQUENCE>1
+<FILENAME>primary_doc.xml
+<TEXT>
+<XML>
+<?xml version="1.0" encoding="UTF-8"?><edgarSubmission xmlns="http://www.sec.gov/edgar/schedule13g" xmlns:com="http://www.sec.gov/edgar/common">
+  <schemaVersion>X0202</schemaVersion>
+<headerData>
+    <submissionType>SCHEDULE 13G</submissionType>
+    <filerInfo>
+      <filer>
+        <filerCredentials>
+          <!-- Field: Pseudo-Tag; ID: Name; Data: FRANKLIN TEMPLETON INC -->
+          <cik>0000038777</cik>
+          <ccc>XXXXXXXX</ccc>
+        </filerCredentials>
+      </filer>
+      <liveTestFlag>LIVE</liveTestFlag>
+
+
+
+    </filerInfo>
+  </headerData>
+  <formData>
+    <coverPageHeader>
+      <securitiesClassTitle>COMMON STOCK, $.01 Par Value</securitiesClassTitle>
+      <eventDateRequiresFilingThisStatement>09/30/2026</eventDateRequiresFilingThisStatement>
+      <issuerInfo>
+        <issuerCik>0000915913</issuerCik>
+        <issuerName>ALBEMARLE CORPORATION</issuerName>
+        <issuerCusips>
+          <issuerCusipNumber>012653101</issuerCusipNumber>
+        </issuerCusips>
+        <issuerPrincipalExecutiveOfficeAddress>
+          <com:street1>4250 Congress Street</com:street1>
+          <com:street2>Suite 900</com:street2>
+          <com:city>Charlotte</com:city>
+          <com:stateOrCountry>NC</com:stateOrCountry>
+          <com:zipCode>28209</com:zipCode>
+        </issuerPrincipalExecutiveOfficeAddress>
+      </issuerInfo>
+      <designateRulesPursuantThisScheduleFiled>
+        <designateRulePursuantThisScheduleFiled>Rule 13d-1(b)</designateRulePursuantThisScheduleFiled>
+      </designateRulesPursuantThisScheduleFiled>
+    </coverPageHeader>
+    <coverPageHeaderReportingPersonDetails>
+
+
+      <reportingPersonName>Franklin Templeton, Inc.</reportingPersonName>
+      <memberGroup>b</memberGroup>
+      <citizenshipOrOrganization>DE</citizenshipOrOrganization>
+      <reportingPersonBeneficiallyOwnedNumberOfShares>
+        <soleVotingPower>5778234.00</soleVotingPower>
+        <sharedVotingPower>14543.00</sharedVotingPower>
+        <soleDispositivePower>6037376.00</soleDispositivePower>
+        <sharedDispositivePower>14606.00</sharedDispositivePower>
+      </reportingPersonBeneficiallyOwnedNumberOfShares>
+      <reportingPersonBeneficiallyOwnedAggregateNumberOfShares>6051982.00</reportingPersonBeneficiallyOwnedAggregateNumberOfShares>
+      <aggregateAmountExcludesCertainSharesFlag>N</aggregateAmountExcludesCertainSharesFlag>
+      <classPercent>5.0</classPercent>
+      <typeOfReportingPerson>HC</typeOfReportingPerson>
+      <typeOfReportingPerson>CO</typeOfReportingPerson>
+      <comments>1. Includes   2,674,100 shares of common stock issuable on conversion of debt securities (as computed under Rule 13d-3(d)(1)(i)).
+2. One or more of the investment management contracts that relates to these securities provides that the
+applicable FTI affiliate share investment power over the securities held in the client's account covered by such
+contract with another unaffiliated entity. The issuer's securities held in all such accounts are less than 5% of the
+outstanding shares of the class. In addition, FTI does not believe that any such contract causes such client or
+any such unaffiliated entity to be part of a group with FTI or any FTI affiliate within the meaning of Rule 13d-5
+under the Act</comments>
+    </coverPageHeaderReportingPersonDetails>
+    <coverPageHeaderReportingPersonDetails>
+
+
+      <reportingPersonName>Charles B. Johnson</reportingPersonName>
+      <memberGroup>b</memberGroup>
+      <citizenshipOrOrganization>X1</citizenshipOrOrganization>
+      <reportingPersonBeneficiallyOwnedNumberOfShares>
+        <soleVotingPower>0.00</soleVotingPower>
+        <sharedVotingPower>0.00</sharedVotingPower>
+        <soleDispositivePower>0.00</soleDispositivePower>
+        <sharedDispositivePower>0.00</sharedDispositivePower>
+      </reportingPersonBeneficiallyOwnedNumberOfShares>
+      <reportingPersonBeneficiallyOwnedAggregateNumberOfShares>0.00</reportingPersonBeneficiallyOwnedAggregateNumberOfShares>
+      <aggregateAmountExcludesCertainSharesFlag>N</aggregateAmountExcludesCertainSharesFlag>
+      <classPercent>0</classPercent>
+      <typeOfReportingPerson>HC</typeOfReportingPerson>
+      <typeOfReportingPerson>IN</typeOfReportingPerson>
+    </coverPageHeaderReportingPersonDetails>
+    <coverPageHeaderReportingPersonDetails>
+
+
+      <reportingPersonName>Rupert H. Johnson, Jr.</reportingPersonName>
+      <memberGroup>b</memberGroup>
+      <citizenshipOrOrganization>X1</citizenshipOrOrganization>
+      <reportingPersonBeneficiallyOwnedNumberOfShares>
+        <soleVotingPower>0.00</soleVotingPower>
+        <sharedVotingPower>0.00</sharedVotingPower>
+        <soleDispositivePower>0.00</soleDispositivePower>
+        <sharedDispositivePower>0.00</sharedDispositivePower>
+      </reportingPersonBeneficiallyOwnedNumberOfShares>
+      <reportingPersonBeneficiallyOwnedAggregateNumberOfShares>0.00</reportingPersonBeneficiallyOwnedAggregateNumberOfShares>
+      <aggregateAmountExcludesCertainSharesFlag>N</aggregateAmountExcludesCertainSharesFlag>
+      <classPercent>0</classPercent>
+      <typeOfReportingPerson>HC</typeOfReportingPerson>
+      <typeOfReportingPerson>IN</typeOfReportingPerson>
+    </coverPageHeaderReportingPersonDetails>
+    <items>
+      <item1>
+        <issuerName>ALBEMARLE CORPORATION</issuerName>
+        <issuerPrincipalExecutiveOfficeAddress>4250 Congress Street, Suite 900, Charlotte, NC 28209</issuerPrincipalExecutiveOfficeAddress>
+      </item1>
+      <item2>
+        <filingPersonName>(i):   Franklin Templeton, Inc.
+(ii):  Charles B. Johnson
+(iii): Rupert H. Johnson, Jr.</filingPersonName>
+        <principalBusinessOfficeOrResidenceAddress>(i), (ii), (iii):
+One Franklin Parkway
+San Mateo, CA 94403-1906</principalBusinessOfficeOrResidenceAddress>
+        <citizenship>(i): Delaware (ii) and (iii): USA</citizenship>
+      </item2>
+      <item3>
+        <notApplicableFlag>N</notApplicableFlag>
+        <typeOfPersonFiling>HC</typeOfPersonFiling>
+      </item3>
+      <item4>
+        <amountBeneficiallyOwned>6,051,982</amountBeneficiallyOwned>
+        <classPercent>5.0%</classPercent>
+        <numberOfSharesPersonHas>
+          <solePowerOrDirectToVote>Franklin Templeton, Inc.: 0
+Charles B. Johnson: 0
+Rupert H. Johnson, Jr.: 0
+Brandywine Global Investment Management, LLC: 46
+Fiduciary Trust Company International: 115
+Fiduciary Trust Company International of Pennsylvania: 50
+Fiduciary Trust International LLC:  3,636
+Fiduciary Trust International of California: 20
+Fiduciary Trust International of the South: 136
+Franklin Advisers, Inc.:   4,007,784
+Franklin Advisory Services, LLC: 566
+Franklin Templeton International Services S.a r.l:  7,889
+Franklin Templeton Investments Corp.: 190,498
+Franklin Templeton Investment Management Limited: 9
+The Putnam Advisory Company, LLC: 63
+Putnam Investment Management, LLC: 25,464
+Templeton Asset Management Ltd.:  7
+Templeton Global Advisors Limited:  1,541,951</solePowerOrDirectToVote>
+          <sharedPowerOrDirectToVote>Templeton Asset Management Ltd.: 14,543</sharedPowerOrDirectToVote>
+          <solePowerOrDirectToDispose>Franklin Templeton, Inc.: 0
+Charles B. Johnson: 0
+Rupert H. Johnson, Jr.: 0
+Brandywine Global Investment Management, LLC: 46
+Fiduciary Trust Company International: 322
+Fiduciary Trust Company International of Pennsylvania: 50
+Fiduciary Trust International LLC:  3,636
+Fiduciary Trust International of California: 20
+Fiduciary Trust International of the South: 136
+Franklin Advisers, Inc.:   4,007,784
+Franklin Advisory Services, LLC: 566
+Franklin Templeton International Services S.a r.l:  8,096
+Franklin Templeton Investments Corp.: 190,498
+Franklin Templeton Investment Management Limited: 9
+Putnam Investment Management, LLC: 25,464
+Templeton Asset Management Ltd.:   258,798
+Templeton Global Advisors Limited:  1,541,951</solePowerOrDirectToDispose>
+          <sharedPowerOrDirectToDispose>Templeton Asset Management Ltd.:  14,543
+The Putnam Advisory Company, LLC: 63</sharedPowerOrDirectToDispose>
+        </numberOfSharesPersonHas>
+      </item4>
+      <item5>
+        <notApplicableFlag>N</notApplicableFlag>
+        <classOwnership5PercentOrLess>Y</classOwnership5PercentOrLess>
+      </item5>
+      <item6>
+        <notApplicableFlag>N</notApplicableFlag>
+        <ownershipMoreThan5PercentOnBehalfOfAnotherPerson>The clients of the Investment Management Subsidiaries, including investment companies registered under the Investment Company Act of 1940 and other managed accounts, have the right to receive or power to direct the receipt of dividends from, and the proceeds from the sale of, the securities reported herein.</ownershipMoreThan5PercentOnBehalfOfAnotherPerson>
+      </item6>
+      <item7>
+        <notApplicableFlag>N</notApplicableFlag>
+        <subsidiaryIdentificationAndClassification>See Attached Exhibit C</subsidiaryIdentificationAndClassification>
+      </item7>
+      <item8>
+        <notApplicableFlag>Y</notApplicableFlag>
+      </item8>
+      <item9>
+        <notApplicableFlag>Y</notApplicableFlag>
+      </item9>
+      <item10>
+        <notApplicableFlag>N</notApplicableFlag>
+        <certifications>By signing below I certify that, to the best of my knowledge and belief, the securities referred to above were acquired and are held in the ordinary course of business and were not acquired and are not held for the purpose of or with the effect of changing or influencing the control of the issuer of the securities and were not acquired and are not held in connection with or as a participant in any transaction having that purpose or effect, other than activities solely in connection with a nomination under § 240.14a-11.</certifications>
+      </item10>
+    </items>
+    <exhibitInfo>Exhibit A: Joint Filing Agreement
+Exhibit B: Item 4 Ownership
+Exhibit C: Item 7 Identification and Classification of Subsidiaries
+
+Exhibit A: JOINT FILING AGREEMENT
+In accordance with Rule 13d-1(k) under the Securities Exchange Act of 1934, as amended, the undersigned
+hereby agree to the joint filing with each other of the attached statement on Schedule 13G and to all amendments
+to such statement and that such statement and all amendments to such statement are made on behalf of each of
+them.
+
+IN WITNESS WHEREOF, the undersigned have executed this agreement on the date of the signing of this filing.
+Franklin Templeton, Inc.
+Charles B. Johnson
+Rupert H. Johnson, Jr.
+
+By: /s/THOMAS C. MANDIA
+Assistant Secretary of Franklin Templeton, Inc.
+Attorney-in-Fact for Charles B. Johnson pursuant to Power of Attorney of attached to this Schedule 13G
+Attorney-in-Fact for Rupert H. Johnson, Jr. pursuant to Power of attached to this Schedule 13G
+
+Exhibit B: Item 4 Ownership
+  The securities reported herein are beneficially owned by one or more open or closed end investment
+companies or other managed accounts that are investment management clients of investment managers that are
+direct and indirect subsidiaries (each, an "Investment Management Subsidiary" and, collectively, the "Investment
+Management Subsidiaries") of Franklin Templeton, Inc. ("FTI"), including the Investment Management
+Subsidiaries listed in this Item 4. When an investment management contract (including a sub advisory
+agreement) delegates to an Investment Management Subsidiary investment discretion or voting power over the
+securities held in the investment advisory accounts that are subject to that agreement, FTI treats the Investment
+Management Subsidiary as having sole investment discretion or voting authority, as the case may be, unless the
+agreement specifies otherwise. Accordingly, each Investment Management Subsidiary reports on Schedule 13G
+that it has sole investment discretion and voting authority over the securities covered by any such investment
+management agreement, unless otherwise noted in this Item 4. As a result, for purposes of Rule 13d-3 under the
+Act, the Investment Management Subsidiaries listed in this Item 4 may be deemed to be the beneficial owners of
+the securities reported in this Schedule 13G.
+  Beneficial ownership by Investment Management Subsidiaries and other FTI affiliates is being reported in
+conformity with the guidelines articulated by the SEC staff in Release No. 34-39538 (January 12, 1998) (the "1998
+Release") relating to organizations, such as FTI, where related entities exercise voting and investment powers
+over the securities being reported independently from each other. The voting and investment powers held by each
+of FTI's affiliates whose ownership of securities is disaggregated from that of FTI in accordance with the 1998
+Release ("FTI Disaggregated Affiliates") are exercised independently from FTI and from all other Investment
+Management Subsidiaries (FTI, its affiliates and the Investment Management Subsidiaries other than FTI
+Disaggregated Affiliates are collectively, "FTI Aggregated Affiliates"). Furthermore, internal policies and
+procedures of, on the one hand, FTI Disaggregated Affiliates, and, on the other hand, FTI establish informational
+barriers that prevent the flow among, on the one hand, FTI Disaggregated Affiliates (including preventing the flow
+between such entities), and, on the other hand, the FTI Aggregated Affiliates of information that relates to the
+voting and investment powers over the securities owned by their respective investment management clients.
+Consequently, FTI Disaggregated Affiliates report the securities over which they hold investment and voting
+power separately from the FTI Aggregated Affiliates for purposes of Section 13 of the Act.
+  Charles B. Johnson and Rupert H. Johnson, Jr. (the "Principal Shareholders") may each own in excess of 10%
+of the outstanding common stock of FTI and are the principal stockholders of FTI (see FTI's Proxy Statement?Stock Ownership of Certain Beneficial Owners). FTI and the Principal Shareholders may be deemed to be, for
+purposes of Rule 13d-3 under the Act, the beneficial owners of securities held by persons and entities for whom
+or for which FTI subsidiaries provide investment management services. The number of shares that may be
+deemed to be beneficially owned and the percentage of the class of which such shares are a part are reported in
+Items 9 and 11 of the cover page for FTI. FTI, the Principal Shareholders and each of the Investment
+Management Subsidiaries disclaim any pecuniary interest in any of such securities. In addition, the filing of this
+Schedule 13G on behalf of the Principal Shareholders, FTI and the FTI Aggregated Affiliates, as applicable,
+should not be construed as an admission that any of them is, and each of them disclaims that it is, the beneficial
+owner, as defined in Rule 13d-3, of any of the securities reported in this Schedule 13G.
+FTI, the Principal Shareholders, and each of the Investment Management Subsidiaries believe that they are
+not a "group" within the meaning of Rule 13d-5 under the Act and that they are not otherwise required to attribute
+to each other the beneficial ownership of the securities held by any of them or by any persons or entities for whom
+or for which the Investment Management Subsidiaries provide investment management services.
+
+EXHIBIT C: Item 7 Identification and Classification of Subsidiaries
+Brandywine Global Investment Management, LLC 3(e)
+Fiduciary Trust Company International: Item 3 Classification: 3(b)
+Fiduciary Trust Co International of Pennsylvania: Item 3 Classification: 3(e)
+Fiduciary Trust International LLC: Item 3 Classification: 3(e)
+Fiduciary Trust International of California: Item 3 Classification: 3(b)
+Fiduciary Trust International of the South: Item 3 Classification: 3(b)
+Franklin Advisers, Inc.: Item 3 Classification: 3(e)
+Franklin Advisory Services, LLC: Item 3 Classification: 3(e)
+Franklin Templeton International Services S.a r.l: 3(j)
+Franklin Templeton Investments Corp.: Item 3 Classification: 3(e)
+Franklin Templeton Investment Management Limited: Item 3 Classification: 3(e)
+The Putnam Advisory Company, LLC: Item 3 Classification: 3(e)
+Putnam Investment Management, LLC: Item 3 Classification: 3(e)
+Templeton Asset Management Ltd.: Item 3 Classification: 3(e)
+Templeton Global Advisors Limited: 3(e)</exhibitInfo>
+    <signatureInformation>
+      <reportingPersonName>Franklin Templeton, Inc.</reportingPersonName>
+      <signatureDetails>
+        <signature>/s/Thomas C. Mandia</signature>
+        <title>Thomas C. Mandia, Assistant Secretary of Franklin Templeton, Inc.</title>
+        <date>10/26/2026</date>
+      </signatureDetails>
+    </signatureInformation>
+    <signatureInformation>
+      <reportingPersonName>Charles B. Johnson</reportingPersonName>
+      <signatureDetails>
+        <signature>/s/Thomas C. Mandia</signature>
+        <title>Attorney in Fact for Charles B. Johnson pursuant to Power of Attorney attached to this Schedule 13G</title>
+        <date>10/26/2026</date>
+      </signatureDetails>
+    </signatureInformation>
+    <signatureInformation>
+      <reportingPersonName>Rupert H. Johnson, Jr.</reportingPersonName>
+      <signatureDetails>
+        <signature>/s/Thomas C. Mandia</signature>
+        <title>Attorney in Fact for Rupert H. Johnson, Jr. pursuant to Power of Attorney attached to this Schedule 13G</title>
+        <date>10/26/2026</date>
+      </signatureDetails>
+    </signatureInformation>
+    <signatureComments>LIMITED POWER OF ATTORNEY FOR SECTION 13 AND 16 REPORTING OBLIGATIONS
+
+Know all by these presents, that the undersigned hereby makes, constitutes and appoints each of Alison E. Baur, Thomas C. Mandia, Beth McAuley O'Malley, Thomas C. Merchant, Kimberly Harper, Virginia E. Rosas and Navid J. Tofigh each acting individually, as the undersigned's true and lawful attorney-in-fact, with full power and authority as hereinafter described on behalf of and in the name, place and stead of the undersigned to:
+1.     Prepare, execute, acknowledge, deliver and file Forms ID, Schedules 13D and 13G, and Forms 3, 4 and 5 (including any amendments thereto and any related documentation) with the United States Securities and Exchange Commission and any national securities exchanges relating to Franklin Templeton, Inc. ("FT") and/or any registered closed-end company to which an affiliate of FT is an investment adviser (each, a "Reporting Entity"), as considered necessary or advisable under Regulation S-T and Sections 13(d) and 16(a) of the Securities Exchange Act of 1934 and the rules and regulations promulgated thereunder, as amended from time to time (the "Exchange Act"); and
+2.     Seek or obtain, as the undersigned's representative and on the undersigned's behalf, information on transactions in the securities of any Reporting Entity from any person, including brokers, employee benefit plan administrators and trustees, and the undersigned hereby authorizes any such person to release any such information to the undersigned and approves and ratifies any such release of information; and
+3.      Perform any and all other acts which in the discretion of such attorney-in-fact are necessary or desirable for and on behalf of the undersigned in connection with the foregoing.
+The undersigned acknowledges that:
+1. This Limited Power of Attorney authorizes, but does not require, each such attorney-in-fact to act in their discretion on information provided to such attorney-in-fact without independent verification of such information;
+2. Any documents prepared and/or executed by any such attorney-in-fact on behalf of the undersigned pursuant to this Limited Power of Attorney will be in such form and will contain such information and disclosure as such attorney-in-fact, in his or her discretion, deems necessary or desirable;
+3. None of FT, any Reporting Entity nor any of such attorneys-in-fact assumes (i) any liability for the undersigned's responsibility to comply with the requirements of the Exchange Act, (ii) any liability of the undersigned for any failure to comply with such requirements, or (iii) any obligation or liability of the undersigned for profit disgorgement under Section 16(b) of the Exchange Act; and
+4. This Limited Power of Attorney does not relieve the undersigned from responsibility for compliance with the undersigned's obligations under the Exchange Act, including without limitation, the reporting requirements under Section 16 of the Exchange Act.
+The undersigned hereby gives and grants each of the foregoing attorneys-in-fact full power and authority to do and perform all and every act and thing whatsoever requisite, necessary or appropriate to be done in and about the foregoing matters as fully to all intents and purposes as the undersigned might or could do if present, hereby ratifying all that each such attorney-in-fact of, for and on behalf of the undersigned, shall lawfully do or cause to be done by virtue of this Limited Power of Attorney, and indemnifies each of the foregoing attorneys-in-fact against any loss of any nature whatsoever arising in connection therewith.
+A facsimile or portable document format (pdf) copy, or an electronic copy by way of reliable electronic signature technology, of the signature of a party to this Limited Power of Attorney on any such counterpart shall be fully effective as in an original signature.
+This Limited Power of Attorney shall remain in full force and effect until revoked by the undersigned in a signed writing delivered to each such attorney-in-fact.
+
+IN WITNESS WHEREOF, the undersigned has caused this Limited Power of Attorney to be executed as of this 15th day of October, 2026.
+
+/s/CHARLES B. JOHNSON
+Name: Charles B. Johnson
+
+LIMITED POWER OF ATTORNEY FOR SECTION 13 AND 16 REPORTING OBLIGATIONS
+
+Know all by these presents, that the undersigned hereby makes, constitutes and appoints each of Alison E. Baur, Thomas C. Mandia, Beth McAuley O'Malley, Thomas C. Merchant, Kimberly Harper, Virginia E. Rosas and Navid J. Tofigh each acting individually, as the undersigned's true and lawful attorney-in-fact, with full power and authority as hereinafter described on behalf of and in the name, place and stead of the undersigned to:
+
+1.     Prepare, execute, acknowledge, deliver and file Forms ID, Schedules 13D and 13G, and Forms 3, 4 and 5 (including any amendments thereto and any related documentation) with the United States Securities and Exchange Commission and any national securities exchanges relating to Franklin Templeton, Inc. ("FT") and/or any registered closed-end company to which an affiliate of FT is an investment adviser (each, a "Reporting Entity"), as considered necessary or advisable under Regulation S-T and Sections 13(d) and 16(a) of the Securities Exchange Act of 1934 and the rules and regulations promulgated thereunder, as amended from time to time (the "Exchange Act"); and
+2.    Seek or obtain, as the undersigned's representative and on the undersigned's behalf, information on transactions in the securities of any Reporting Entity from any person, including brokers, employee benefit plan administrators and trustees, and the undersigned hereby authorizes any such person to release any such information to the undersigned and approves and ratifies any such release of information; and
+3.     Perform any and all other acts which in the discretion of such attorney-in-fact are necessary or desirable for and on behalf of the undersigned in connection with the foregoing.
+The undersigned acknowledges that:
+1. This Limited Power of Attorney authorizes, but does not require, each such attorney-in-fact to act in their discretion on information provided to such attorney-in-fact without independent verification of such information;
+2. Any documents prepared and/or executed by any such attorney-in-fact on behalf of the undersigned pursuant to this Limited Power of Attorney will be in such form and will contain such information and disclosure as such attorney-in-fact, in his or her discretion, deems necessary or desirable;
+3. None of FT, any Reporting Entity nor any of such attorneys-in-fact assumes (i) any liability for the undersigned's responsibility to comply with the requirements of the Exchange Act, (ii) any liability of the undersigned for any failure to comply with such requirements, or (iii) any obligation or liability of the undersigned for profit disgorgement under Section 16(b) of the Exchange Act; and
+4. This Limited Power of Attorney does not relieve the undersigned from responsibility for compliance with the undersigned's obligations under the Exchange Act, including without limitation, the reporting requirements under Section 16 of the Exchange Act.
+The undersigned hereby gives and grants each of the foregoing attorneys-in-fact full power and authority to do and perform all and every act and thing whatsoever requisite, necessary or appropriate to be done in and about the foregoing matters as fully to all intents and purposes as the undersigned might or could do if present, hereby ratifying all that each such attorney-in-fact of, for and on behalf of the undersigned, shall lawfully do or cause to be done by virtue of this Limited Power of Attorney, and indemnifies each of the foregoing attorneys-in-fact against any loss of any nature whatsoever arising in connection therewith.
+A facsimile or portable document format (pdf) copy, or an electronic copy by way of reliable electronic signature technology, of the signature of a party to this Limited Power of Attorney on any such counterpart shall be fully effective as in an original signature.
+This Limited Power of Attorney shall remain in full force and effect until revoked by the undersigned in a signed writing delivered to each such attorney-in-fact.
+IN WITNESS WHEREOF, the undersigned has caused this Limited Power of Attorney to be executed as of this 15th day of October, 2026.
+
+/s/RUPERT H. JOHNSON, JR.
+Name:  Rupert H. Johnson, Jr.</signatureComments>
+  </formData>
+</edgarSubmission>
+</XML>
+</TEXT>
+</DOCUMENT>
+</SEC-DOCUMENT>

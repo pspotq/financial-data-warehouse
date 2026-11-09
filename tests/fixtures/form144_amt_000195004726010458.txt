@@ -1,0 +1,157 @@
+<SEC-DOCUMENT>0001950047-26-010458.txt : 20261028
+<SEC-HEADER>0001950047-26-010458.hdr.sgml : 20261028
+<ACCEPTANCE-DATETIME>20261028161830
+ACCESSION NUMBER:		0001950047-26-010458
+CONFORMED SUBMISSION TYPE:	144
+PUBLIC DOCUMENT COUNT:		1
+FILED AS OF DATE:		20261028
+DATE AS OF CHANGE:		20261028
+
+SUBJECT COMPANY:	
+
+	COMPANY DATA:	
+		COMPANY CONFORMED NAME:			AMERICAN TOWER CORP /MA/
+		CENTRAL INDEX KEY:			0001053507
+		STANDARD INDUSTRIAL CLASSIFICATION:	REAL ESTATE INVESTMENT TRUSTS [6798]
+		ORGANIZATION NAME:           	05 Real Estate & Construction
+		EIN:				650723837
+		STATE OF INCORPORATION:			DE
+		FISCAL YEAR END:			1231
+
+	FILING VALUES:
+		FORM TYPE:		144
+		SEC ACT:		1933 Act
+		SEC FILE NUMBER:	001-14195
+		FILM NUMBER:		261495997
+
+	BUSINESS ADDRESS:	
+		STREET 1:		222 BERKELEY STREET
+		CITY:			BOSTON
+		STATE:			MA
+		ZIP:			02116
+		BUSINESS PHONE:		6173757500
+
+	MAIL ADDRESS:	
+		STREET 1:		222 BERKELEY STREET
+		CITY:			BOSTON
+		STATE:			MA
+		ZIP:			02116
+
+	FORMER COMPANY:	
+		FORMER CONFORMED NAME:	AMERICAN TOWER SYSTEMS CORP
+		DATE OF NAME CHANGE:	19980128
+
+REPORTING-OWNER:	
+
+	COMPANY DATA:	
+		COMPANY CONFORMED NAME:			Dowling Ruth T
+		CENTRAL INDEX KEY:			0001960785
+		ORGANIZATION NAME:           	
+
+	FILING VALUES:
+		FORM TYPE:		144
+
+	MAIL ADDRESS:	
+		STREET 1:		C/O AMERICAN TOWER CORPORATION
+		STREET 2:		222 BERKELEY STREET
+		CITY:			BOSTON
+		STATE:			MA
+		ZIP:			02116
+</SEC-HEADER>
+<DOCUMENT>
+<TYPE>144
+<SEQUENCE>1
+<FILENAME>primary_doc.xml
+<TEXT>
+<XML>
+<?xml version="1.0" encoding="UTF-8"?><edgarSubmission xmlns="http://www.sec.gov/edgar/ownership" xmlns:ns2="http://www.sec.gov/edgar/common">
+    <headerData>
+        <submissionType>144</submissionType>
+        <filerInfo>
+            <filer>
+                <filerCredentials>
+                    <cik>0001960785</cik>
+                    <ccc>XXXXXXXX</ccc>
+                </filerCredentials>
+            </filer>
+            <liveTestFlag>LIVE</liveTestFlag>
+
+
+
+        </filerInfo>
+    </headerData>
+    <formData>
+        <issuerInfo>
+            <issuerCik>0001053507</issuerCik>
+            <issuerName>AMERICAN TOWER CORPORATION</issuerName>
+            <secFileNumber>001-14195</secFileNumber>
+            <issuerAddress>
+                <ns2:street1>222 Berkeley Street</ns2:street1>
+                <ns2:city>Boston</ns2:city>
+                <ns2:stateOrCountry>MA</ns2:stateOrCountry>
+                <ns2:zipCode>02116</ns2:zipCode>
+            </issuerAddress>
+            <issuerContactPhone>6173757500</issuerContactPhone>
+            <nameOfPersonForWhoseAccountTheSecuritiesAreToBeSold>RUTH T DOWLING</nameOfPersonForWhoseAccountTheSecuritiesAreToBeSold>
+            <relationshipsToIssuer>
+                <relationshipToIssuer>Officer</relationshipToIssuer>
+            </relationshipsToIssuer>
+        </issuerInfo>
+        <securitiesInformation>
+            <securitiesClassTitle>Common</securitiesClassTitle>
+            <brokerOrMarketmakerDetails>
+                <name>Morgan Stanley Smith Barney LLC Executive Financial Services</name>
+                <address>
+                    <ns2:street1>1 New York Plaza</ns2:street1>
+                    <ns2:street2>8th Floor</ns2:street2>
+                    <ns2:city>New York</ns2:city>
+                    <ns2:stateOrCountry>NY</ns2:stateOrCountry>
+                    <ns2:zipCode>10004</ns2:zipCode>
+                </address>
+            </brokerOrMarketmakerDetails>
+            <noOfUnitsSold>1578</noOfUnitsSold>
+            <aggregateMarketValue>290083.74</aggregateMarketValue>
+            <noOfUnitsOutstanding>463763555</noOfUnitsOutstanding>
+            <approxSaleDate>10/28/2026</approxSaleDate>
+            <securitiesExchangeName>NYSE</securitiesExchangeName>
+        </securitiesInformation>
+        <securitiesToBeSold>
+            <securitiesClassTitle>Common</securitiesClassTitle>
+            <acquiredDate>03/10/2023</acquiredDate>
+            <natureOfAcquisitionTransaction>Restricted Stock Units</natureOfAcquisitionTransaction>
+            <nameOfPersonfromWhomAcquired>Issuer</nameOfPersonfromWhomAcquired>
+            <isGiftTransaction>N</isGiftTransaction>
+            <amountOfSecuritiesAcquired>1578</amountOfSecuritiesAcquired>
+            <paymentDate>03/10/2023</paymentDate>
+            <natureOfPayment>N/A</natureOfPayment>
+        </securitiesToBeSold>
+        <nothingToReportFlagOnSecuritiesSoldInPast3Months>N</nothingToReportFlagOnSecuritiesSoldInPast3Months>
+        <securitiesSoldInPast3Months>
+            <sellerDetails>
+                <name>10b5-1 Sales for RUTH T DOWLING</name>
+                <address>
+                    <ns2:street1>222 Berkeley Street</ns2:street1>
+                    <ns2:city>Boston</ns2:city>
+                    <ns2:stateOrCountry>MA</ns2:stateOrCountry>
+                    <ns2:zipCode>02116</ns2:zipCode>
+                </address>
+            </sellerDetails>
+            <securitiesClassTitle>Common</securitiesClassTitle>
+            <saleDate>07/29/2026</saleDate>
+            <amountOfSecuritiesSold>1106</amountOfSecuritiesSold>
+            <grossProceeds>193505.76</grossProceeds>
+        </securitiesSoldInPast3Months>
+        <remarks>The securities to be sold were acquired upon the vesting of restricted stock units during the period of 03/10/2023 through 03/10/2025.</remarks>
+        <noticeSignature>
+            <noticeDate>10/28/2026</noticeDate>
+            <planAdoptionDates>
+                <planAdoptionDate>10/29/2025</planAdoptionDate>
+            </planAdoptionDates>
+            <signature>/s/ Ruth T Dowling</signature>
+        </noticeSignature>
+    </formData>
+</edgarSubmission>
+</XML>
+</TEXT>
+</DOCUMENT>
+</SEC-DOCUMENT>
