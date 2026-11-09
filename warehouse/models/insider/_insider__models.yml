@@ -1,0 +1,47 @@
+version: 2
+models:
+  - name: insider_buy_context
+    description: 'History behind each issuer buying day: previous buying day, largest-since, buying days and non-plan sale
+      dollars over the prior year. Source: rrp.insider_buys + rrp.insider_trades. Updates: computed when read. One row: one
+      ticker x filing date. Notes: Filter on ticker.'
+  - name: insider_buys
+    description: 'Clean open-market buys: code P, $10K or more, no plan / private-placement / non-USD / employee-plan / DRIP
+      / fee lines, no amendments, no implausible values. Source: rrp.insider_trades. Updates: computed when read. One row:
+      one buy.'
+  - name: insider_buys_priced
+    description: 'Clean insider buys with the market close on or before the trade; price_mismatch when the filed price is
+      off the close by more than 1.5x. Source: rrp.insider_buys + markets.equity_daily. Updates: computed when read. One row:
+      one buy.'
+  - name: insider_buys_sized
+    description: 'Insider buys with company size at the time: shares outstanding, close, market cap, buy as % of market cap
+      and of shares, first delisting after the buy. Source: rrp.insider_buys + rrp.sec_shares_outstanding + markets.equity_daily
+      + rrp.sec_delistings. Updates: computed when read. One row: one buy line (as rrp.insider_buys).'
+  - name: insider_clusters
+    description: 'Insider buying by company over the last 30 days (3+ buyers, $250K+): buyers, dollars, selling in the same
+      window, last close. Source: rrp.insider_buys_priced + rrp.insider_trades. Updates: computed when read. One row: one
+      company.'
+  - name: insider_filings
+    description: 'The Form 4 screen: one row per filing and direction since 2006 with every screen flag, role flags, the 5-day
+      issuer cluster, the ledger bars (buy_bar, sale_bar), buy_type and non-dollar buys converted to dollars (value_usd_fx).
+      Source: sec.insider_filings_snap (nightly copy of rrp.insider_filings_live). Updates: daily. One row: one filing x direction
+      (P or S). Notes: Filter on filed: about 10 MB a read. Rebuilt by rrp-feeds after each Form 4 day loads; snapped_at =
+      when. Footnote flags mean check, not drop.'
+  - name: insider_filings_live
+    description: 'The same Form 4 screen computed live from insider_trades, insider_buys, insider_buys_priced / _sized and
+      the FRED exchange rates. Source: rrp.insider_trades + rrp.insider_buys + insider_buys_priced / _sized + macro_daily
+      (FRED FX). Updates: computed when read. One row: one filing x direction (P or S). Notes: About 3.2 GB per read: for
+      checking a change before the nightly copy. Tasks read rrp.insider_filings.'
+  - name: insider_followups
+    description: 'Clean insider buying $100K+ measured 1, 5 and 20 trading sessions after filing against the latest close,
+      with post order. Source: rrp.insider_buys_priced + rrp.equity_daily. Updates: computed when read. One row: one ticker
+      x filing date x horizon.'
+  - name: insider_today
+    description: 'Today''s and yesterday''s Form 4 purchases and sales from EDGAR''s live feed, one row per filing and direction,
+      NOT screened. Source: sec.form4_today. Updates: hourly at :05. One row: one filing x direction. Notes: For same-day
+      posts: read the Form 4 first. rrp.insider_filings is the record from the next morning.'
+  - name: insider_trades
+    description: 'Form 4 open-market purchases (P) and sales (S), every EDGAR day from Jan 2006 to yesterday. Source: sec.form4.
+      Updates: nightly. One row: one distinct transaction line. Notes: Jointly filed lines collapsed (copies = how many).
+      A 4/A line repeating an original line is left out; changed 4/A lines are kept. value is negative for sales. value_suspect
+      = the filer''s numbers are implausible: leave out of sums and records. 2006-2020 rows (source sec_dataset) have shares
+      and prices rounded to 2 decimals.'

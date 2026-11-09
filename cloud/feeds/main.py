@@ -2,10 +2,10 @@
 
 Runs as the Cloud Run job `rrp-feeds` every hour at :05 (Cloud Scheduler `rrp-feeds-hourly`). Each source is
 independent: a failure is written to `ops.feeds_runs` and the rest carry on; the job always exits 0.
-The rrp.* views over these tables are built by warehouse/build.py, not here.
+The rrp.* views over these tables are the dbt models in warehouse/, not here.
 
   python main.py                 # one run (what the job does)
-  python main.py --setup         # create the tables if missing (warehouse/build.py builds the views)
+  python main.py --setup         # create the tables if missing (dbt in warehouse/ builds the views)
   python main.py --backfill      # deep pulls: EFTS 30 days, COT since 2018, DoD awards 2 years
   python main.py --dry           # pull only, print counts, write nothing
   python main.py --dod-range 2025-03-01 2025-07-31   # re-pull one DoD date range in 10-day windows

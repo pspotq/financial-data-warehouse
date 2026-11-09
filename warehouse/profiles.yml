@@ -1,0 +1,16 @@
+# Connection profile. No credentials are stored here: it uses Application Default Credentials
+# (`gcloud auth application-default login`) locally and Workload Identity Federation in CI.
+financial_data_warehouse:
+  target: prod
+  outputs:
+    prod:
+      type: bigquery
+      method: oauth
+      project: "{{ env_var('GCP_PROJECT') }}"
+      dataset: rrp
+      location: US
+      threads: 8
+      job_execution_timeout_seconds: 300
+      job_retries: 1
+      # Hard cost cap per query, same idea as cloud/*/bq_cap.py: a query that would bill more fails instead of running.
+      maximum_bytes_billed: 5000000000

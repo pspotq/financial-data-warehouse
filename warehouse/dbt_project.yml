@@ -1,0 +1,27 @@
+name: financial_data_warehouse
+version: "1.0.0"
+config-version: 2
+profile: financial_data_warehouse
+
+model-paths: ["models"]
+macro-paths: ["macros"]
+target-path: "target"
+clean-targets: ["target", "dbt_packages"]
+
+models:
+  financial_data_warehouse:
+    # The reading layer: every model is a view in the `rrp` dataset (the profile's target dataset).
+    +materialized: view
+    # Write each model's description into BigQuery, so it shows in the console and INFORMATION_SCHEMA.
+    +persist_docs:
+      relation: true
+    +labels:
+      layer: rrp
+
+data_tests:
+  financial_data_warehouse:
+    # Tests read at most a few recent partitions; anything wider fails fast under the bytes cap in profiles.yml.
+    +severity: error
+
+flags:
+  send_anonymous_usage_stats: false

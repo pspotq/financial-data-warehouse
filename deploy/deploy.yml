@@ -4,7 +4,7 @@
 #        cloud/feeds/**   -> Cloud Run job rrp-sec     (feeds code, RRP_SUBJECT=sec: everything SEC; dataset sec)
 #        cloud/market/**  -> Cloud Run job rrp-markets (market code, RRP_SUBJECT=markets; dataset markets)
 #        either, or cloud/gov/** -> Cloud Run job rrp-gov (both, RRP_SUBJECT=gov: CFTC, DoD, war.gov, Treasury, EIA, NOAA; dataset gov)
-#        warehouse/**     -> python warehouse/build.py (rebuilds every view; deletes views no longer defined)
+#        warehouse/**     -> dbt run + dbt test + dbt source freshness in warehouse/ (rebuilds the rrp views, then checks them)
 # One ingest job per subject since the rebuild (b252, 2026-10-29); they replace rrp-feeds / rrp-market, whose schedulers
 # the "cutover" run pauses (the old jobs stay deployed, unscheduled, until the new ones have run clean).
 # Manual "cutover" (or "schedules"): deploy all three, create / update their Cloud Schedulers, pause the old ones.
@@ -227,14 +227,17 @@ jobs:
           pip install -q -r cloud/feeds/requirements.txt
           if [ "${{ steps.plan.outputs.sec }}" = "true" ]; then (cd cloud/feeds && RRP_PROJECT=$PROJECT python main.py --setup); fi
           if [ "${{ steps.plan.outputs.markets }}" = "true" ]; then (cd cloud/market && RRP_PROJECT=$PROJECT python main.py --setup); fi
-      - name: build warehouse views
+      - name: build warehouse views (dbt)
         if: steps.plan.outputs.warehouse == 'true'
         working-directory: warehouse
+        env:
+          GCP_PROJECT: ${{ env.PROJECT }}
+          DBT_PROFILES_DIR: .
         run: |
-          pip install -q google-cloud-bigquery==3.27.0
-          echo "{\"project\": \"$PROJECT\"}" > config.json
-          set -o pipefail
-          python build.py 2>&1 | tee build.log || { echo "::error title=build.py failed::$(tail -c 3000 build.log | tr '\n' ' ')"; exit 1; }
+          pip install -q -r requirements.txt
+          dbt run              # create or replace every view in rrp
+          dbt test             # data tests on the views and raw tables (recent partitions only)
+          dbt source freshness # warn / error when a raw feed stops landing
       - name: run a job once
         if: inputs.run_job != '' && inputs.run_job != 'none'
         run: |

@@ -1,0 +1,92 @@
+version: 2
+models:
+  - name: crypto_24h
+    description: 'The 24h figure for each Kraken core coin: last vs the price 24 hours earlier, 24h high/low, Coinbase and
+      CoinPaprika price checks. Source: rrp.crypto_spot_latest + rrp.crypto_core_hourly + rrp.crypto_market. Updates: computed
+      when read. One row: one coin. Notes: ok = fresh, full bars, checks within 1.5%. The house definition of 24h change;
+      never the UTC-day open.'
+  - name: crypto_all_daily
+    description: 'Daily OHLCV for every Kraken and Coinbase USD pair, full venue history. Source: markets.crypto_daily. Updates:
+      daily 00:15 UTC. One row: one venue-pair-day. Notes: Tickers collide across projects: check prices against rrp.crypto_market.'
+  - name: crypto_btc_fees_latest
+    description: 'Bitcoin network fee estimates. Source: markets.btc_fees. Updates: every 15 min. One row: one reading.'
+  - name: crypto_core_daily
+    description: 'Completed daily candles for the 12 core coins with MA20, MA50 and RSI14. Source: markets.crypto_ohlc + markets.crypto_indicators_daily.
+      Updates: every 15 min. One row: one coin-day. Notes: Kraken. For other coins or longer history use rrp.crypto_all_daily.'
+    data_tests:
+      - unique_combination:
+          arguments:
+            columns:
+              - symbol
+              - date
+          config:
+            where: date >= date_sub(current_date(), interval 30 day)
+  - name: crypto_core_hourly
+    description: 'Hourly candles for the 12 core coins. Source: markets.crypto_ohlc. Updates: every 15 min. One row: one coin-hour.'
+  - name: crypto_derivs_latest
+    description: 'BTC and ETH perpetuals: mark, funding (annualized too), open interest. Source: markets.crypto_derivs. Updates:
+      every 15 min. One row: one instrument.'
+  - name: crypto_fear_greed
+    description: 'Crypto Fear & Greed index. Source: markets.crypto_fear_greed. Updates: daily value. One row: one day.'
+  - name: crypto_global_latest
+    description: 'Total crypto market cap, volume and BTC dominance. Source: markets.crypto_global. Updates: every 15 min.
+      One row: one reading.'
+  - name: crypto_market
+    description: 'CoinPaprika top 2,000 coins, hourly snapshots: price, volume, market cap, changes, ATH, project age. Source:
+      markets.crypto_market. Updates: hourly. One row: one coin per snapshot.'
+  - name: crypto_movers
+    description: 'Top-200 coins with $10M+ volume, pegged coins out, ranked by size of the 24h move (price now vs the snapshot
+      24h earlier). Source: rrp.crypto_market. Updates: hourly. One row: one coin. Notes: move_rank 1 = biggest move either
+      way. paprika_pct_24h kept for reference.'
+  - name: crypto_records
+    description: 'Each core coin''s newest completed day vs its own history: biggest move since, highest/lowest close since,
+      days above/below MA50, 7d/30d returns. Source: rrp.crypto_core_daily. Updates: daily 00:15 UTC. One row: one coin.'
+  - name: crypto_spot_latest
+    description: 'Latest spot price per source and symbol, with its age. Source: markets.crypto_spot. Updates: every 15 min.
+      One row: one source x symbol.'
+  - name: crypto_trending_latest
+    description: 'Coinbase trending list. Source: markets.crypto_trending. Updates: every 15 min. One row: one coin.'
+  - name: etf_flows
+    description: 'US spot BTC, ETH and SOL ETF net flows per fund per trading day, US$ millions (negative = outflow). Source:
+      markets.etf_flows (Farside). Updates: hourly. One row: one fund on one trading day. Notes: The newest day can change
+      as late funds report.'
+  - name: etf_flows_daily
+    description: 'Daily total spot ETF flow per asset with the current inflow/outflow streak. Source: markets.etf_flows (Farside).
+      Updates: hourly. One row: one asset on one trading day. Notes: streak_days > 0 = consecutive inflow days, < 0 = outflow
+      days.'
+  - name: etf_flows_latest
+    description: 'Newest posted day of spot ETF flows per asset before today: total, streak, week and 30-day sums, largest-since,
+      top fund, IBIT/FBTC. Source: rrp.etf_flows_daily + rrp.etf_flows (Farside). Updates: hourly. One row: one asset. Notes:
+      may_be_partial = read before 10 AM ET the next weekday.'
+  - name: fear_greed_latest
+    description: 'Crypto Fear & Greed today, days in its current classification, reading a week earlier. Source: rrp.crypto_fear_greed.
+      Updates: daily. One row: one row.'
+  - name: funding_daily
+    description: 'Average annualized perpetual funding per coin per UTC day. Source: rrp.funding_rates. Updates: daily. One
+      row: one coin x day.'
+  - name: funding_extremes
+    description: 'Each coin''s perpetual funding on the newest completed UTC day vs its own history: highest/lowest since,
+      days since, 30-day average, market-cap rank. Source: rrp.funding_daily + rrp.crypto_market. Updates: daily 00:15 UTC.
+      One row: one coin.'
+  - name: funding_rates
+    description: 'Perpetual funding per period with the rate in % and annualized. Source: markets.funding_rates (Kraken Futures).
+      Updates: daily. One row: one instrument x funding period.'
+  - name: momentum_paths
+    description: 'Coins the momentum scan''s number filters flag each morning, with the price every hour for 7 days. Source:
+      markets.crypto_market. Updates: computed when read. One row: one flagged coin x scan date x hour. Notes: From 2026-10-02.'
+  - name: momentum_screen
+    description: 'The momentum scan''s four number filters on the newest snapshot, with passed = how many. Source: rrp.crypto_market.
+      Updates: hourly. One row: one coin (passed >= 3 only).'
+  - name: ref_pegged
+    description: 'Coins that track a dollar, euro or gold price; left out of movers and momentum reads. Source: list in the model SQL.
+      Updates: static. One row: one symbol.'
+  - name: stablecoin_supply
+    description: 'Dollar stablecoin supply per coin and in total, with 1d / 7d / 30d change and a frozen-source flag. Source:
+      rrp.stablecoins_latest (DefiLlama). Updates: hourly. One row: one coin, plus a TOTAL row.'
+  - name: stablecoins_daily
+    description: 'Stablecoin supply per coin per day: every coin from Sep 28 2026, USDT / USDC / DAI back to 2017. Source:
+      markets.stablecoins + markets.history_stablecoins. Updates: hourly (live part). One row: one coin-day. Notes: source
+      = defillama (live) or history.'
+  - name: stablecoins_latest
+    description: 'Latest supply reading for every stablecoin DefiLlama tracks (now, a day, a week, a month ago). Source: markets.stablecoins.
+      Updates: hourly. One row: one coin.'

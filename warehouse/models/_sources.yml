@@ -1,0 +1,376 @@
+# Raw tables loaded by the Cloud Run ingest jobs (cloud/feeds, cloud/market, cloud/gov).
+version: 2
+sources:
+  - name: sec
+    database: '{{ env_var(''GCP_PROJECT'') }}'
+    schema: sec
+    description: 'SEC data loaded by the rrp-sec job: full-text search hits, filing text, every Form 4 open-market line, company
+      facts (XBRL), the CIK/ticker list and delisting filings.'
+    tables:
+      - name: adv_firms
+        description: 'SEC monthly investment adviser snapshots (registered and exempt reporting advisers): CRD, CIK, AUM,
+          accounts, employees. Source: rrp-sec Cloud Run job (cloud/feeds code, SEC sources), hourly at :05 (sec_funds.py,
+          once a day in the 7 AM ET run); history: sec_funds.py --adv-history (Feb 2019 on). Updates: monthly SEC file. One
+          row: one firm x snapshot month.'
+      - name: cik_tickers
+        description: 'SEC company list: CIK, name, ticker, exchange. Source: rrp-sec Cloud Run job (cloud/feeds code, SEC
+          sources), hourly at :05 (company_tickers_exchange.json). Updates: daily, 7 AM ET run. One row: one company x ticker
+          x day.'
+      - name: cusip_figi
+        description: 'OpenFIGI answers for 13F CUSIPs the 13G map can''t place: ticker, exchange, security type, name, FIGI;
+          found or not. Source: rrp-feeds cusip_figi.py (08:05 UTC, up to 1,500 a day; backfill: main.py --cusip-figi --cusip-max
+          N). Updates: daily. One row: one lookup per CUSIP (newest wins; not-found asked again after 90 days).'
+      - name: delistings
+        description: 'Form 25 / 25-NSE and Form 15 / 15F filings (delisting and deregistration). Source: rrp-sec Cloud Run
+          job (cloud/feeds code, SEC sources), hourly at :05 (EDGAR daily form index) + sec_reference.py --delistings-since
+          (full index, history). Updates: daily, 7 AM ET run. One row: one filing x company.'
+      - name: filing_docs
+        description: 'Filing text: document list, main documents, exhibits and Form 4 XML. Source: rrp-sec Cloud Run job (cloud/feeds
+          code, SEC sources), hourly at :05 (filing_docs.py). Updates: hourly. One row: one document per fetch. Notes: Partitioned
+          by month on file_date, clustered by acc18 and doc_type. Read through rrp.sec_docs. Two depths: hourly fetches (source
+          filing_hits / insider_form4, Oct 2025 on) keep the main document plus up to 5 useful exhibits; the history fill
+          (source filing_hits_history, 2015 to Sep 2026) kept the main document plus up to 2 (offer to purchase / press release,
+          no merger agreements). Documents over 500,000 characters are cut and flagged truncated (checked Oct 28, 2026: 29
+          tender originals, 34 13Ds and 12 redemption calls are affected, and their terms fill about as often as the rest,
+          so the extractors do not need a fallback).'
+      - name: filing_hits
+        description: 'EDGAR full-text search hits for the 21 streams. Source: rrp-sec Cloud Run job (cloud/feeds code, SEC
+          sources), hourly at :05. Updates: hourly (last 3 days each run, MERGE). One row: one filing document x stream.'
+      - name: filing_index
+        description: 'EDGAR''s form index: every filing of every form type, one row per filing and CIK. Source: rrp-sec Cloud
+          Run job (cloud/feeds code, SEC sources), hourly at :05. Updates: daily (last 14 daily indexes at 08:05 / 11:05 UTC,
+          MERGE); history 1993 on from the quarterly full index. One row: one filing x CIK.'
+      - name: form13f_filings
+        description: '13F-HR / 13F-HR/A / 13F-NT cover pages: manager, period, report type, entry count, cover total. Source:
+          rrp-sec Cloud Run job (cloud/feeds code, SEC sources), hourly at :05 (sec_funds.py, once a day in the 7 AM ET run);
+          history from the 13F data sets (2013 Q3 on). Updates: daily (last 5 daily indexes). One row: one filing. Notes:
+          Cover totals unit-fixed 2026-10-26 (sec.form13f_unit_fixes). Partitioned by year.'
+        columns:
+          - name: accession
+            data_tests:
+              - unique
+              - not_null
+      - name: form13f_holdings
+        description: '13F information-table lines: issuer, class, CUSIP, value, shares, put/call, discretion, voting. Source:
+          rrp-sec Cloud Run job (cloud/feeds code, SEC sources), hourly at :05 (sec_funds.py, once a day in the 7 AM ET run);
+          history from the 13F data sets. Updates: daily (last 5 daily indexes). One row: one holding line. Notes: value_usd
+          in dollars after the units fix; value_reported as filed. Deduplicated 2026-10-26. Read through rrp.form13f_holdings.'
+      - name: form13f_totals
+        description: 'Per 13F filing: the sum and count of its holding lines (the computed total, unlike the cover). Source:
+          rrp-sec Cloud Run job (cloud/feeds code, SEC sources), hourly at :05 (sec_funds.py, once a day in the 7 AM ET run).
+          Updates: daily, after each 13F load. One row: one filing. Notes: Cover totals carry typos (Dimensional 2022-Q3 ~23x,
+          State Street 2023-Q1 ~1/10x); use this.'
+      - name: form13f_unit_fixes
+        description: '13F filings whose units were corrected, with the evidence (median $ per share, or cover / holdings ratio).
+          Source: rrp-sec Cloud Run job (cloud/feeds code, SEC sources), hourly at :05 (sec_funds.py, once a day in the 7
+          AM ET run) (and the 2026-10-26 audit backfill). Updates: daily, when a filing needs a fix. One row: one filing x
+          kind. Notes: kind: holdings, holdings_no_sh, holdings_post2023, cover.'
+      - name: form13g
+        description: 'Schedule 13G / 13G/A structured filings: filer, rule, CUSIP, pct, shares, all reporting persons. Source:
+          rrp-sec Cloud Run job (cloud/feeds code, SEC sources), hourly at :05 (sec_funds.py, once a day in the 7 AM ET run);
+          history: sec_funds.py --13g-history (Dec 2024 on). Updates: daily. One row: one filing.'
+      - name: form144
+        description: 'Form 144 / 144/A lines: seller, relationship, broker, units to sell, market value, units outstanding,
+          sale date, 10b5-1 plan. Source: rrp-sec Cloud Run job (cloud/feeds code, SEC sources), hourly at :05 (sec_funds.py,
+          once a day in the 7 AM ET run); history: sec_funds.py --144-history. Updates: daily. One row: one security line.'
+      - name: form4
+        description: 'Every Form 4 / 4/A open-market purchase (P) and sale (S) line, typed, as filed. Source: rrp-sec Cloud
+          Run job (cloud/feeds code, SEC sources), hourly at :05 (form4_scan.py); history from form4_bulk.py. Updates: hourly
+          (yesterday''s filings once EDGAR posts the index). One row: one transaction line per filer, as filed. Notes: Partitioned
+          by filing month, clustered by ticker and code. Joint filers repeat a trade; amendments repeat lines: rrp.insider_trades
+          handles both.'
+      - name: form4_today
+        description: 'Today''s Form 4 open-market lines from EDGAR''s live latest-filings feed. Source: rrp-sec Cloud Run
+          job (cloud/feeds code, SEC sources), hourly at :05 (form4_scan.py). Updates: hourly at :05. One row: one transaction
+          line. Notes: Resets daily; read through rrp.insider_today. sec.form4 is the record.'
+      - name: formd
+        description: 'Form D / D/A filings: issuer, industry, fund type, offering size, amount sold, investors, exemptions.
+          Source: rrp-sec Cloud Run job (cloud/feeds code, SEC sources), hourly at :05 (sec_funds.py, once a day in the 7
+          AM ET run); history from the SEC Form D data sets (2008 on). Updates: daily (last 5 daily indexes). One row: one
+          filing.'
+        columns:
+          - name: accession
+            data_tests:
+              - unique
+              - not_null
+      - name: insider_filings_snap
+        description: 'Nightly copy of rrp.insider_filings_live (the Form 4 screen), so a read costs ~10 MB instead of ~3 GB.
+          Source: rrp-sec Cloud Run job (cloud/feeds code, SEC sources), hourly at :05 (rebuilt after each Form 4 day loads).
+          Updates: daily. One row: one filing x direction. Notes: Read through rrp.insider_filings.'
+      - name: redemption_terms
+        description: 'Calls and redemptions extracted from 8-K text: security, date, price, make-whole. Source: rrp-sec Cloud
+          Run job (cloud/feeds code, SEC sources), hourly at :05 (once a day at 08:05 UTC, last 14 days of filing text) (redemption_terms.py).
+          Updates: daily 08:05 UTC. One row: one filing x extractor version. Notes: Read through rrp.redemptions.'
+      - name: stake_terms
+        description: 'Schedule 13D cover-page stakes and Item 4 purpose flags extracted from filing text. Source: rrp-sec
+          Cloud Run job (cloud/feeds code, SEC sources), hourly at :05 (once a day at 08:05 UTC, last 14 days of filing text)
+          (stake_terms.py). Updates: daily 08:05 UTC. One row: one filing x extractor version. Notes: Read through rrp.stakes.'
+      - name: tender_terms
+        description: 'Schedule TO terms extracted from filing text (rule-based), one row per filing per extractor version.
+          Source: rrp-sec Cloud Run job (cloud/feeds code, SEC sources), hourly at :05 (once a day at 08:05 UTC, last 14 days
+          of filing text) (tender_terms.py). Updates: daily 08:05 UTC. One row: one filing x extractor version. Notes: v1
+          rows deleted 2026-10-26. Read through rrp.tender_terms.'
+      - name: xbrl_facts
+        description: 'Company facts from 10-K / 10-Q / 20-F XBRL: shares outstanding, public float, cash, debt, assets, liabilities,
+          equity, revenue, net income, EPS, cash flow, buybacks. Source: rrp-sec Cloud Run job (cloud/feeds code, SEC sources),
+          hourly at :05 (SEC frames API, Mondays) + cloud/feeds/sec_reference.py --xbrl-bulk (companyfacts.zip, history).
+          Updates: weekly; history loaded once from the PC. One row: one company x concept x unit x period x filing. Notes:
+          filed is NULL on frames rows; use filed for point-in-time studies.'
+  - name: gov
+    database: '{{ env_var(''GCP_PROJECT'') }}'
+    schema: gov
+    description: CFTC Commitments of Traders, USAspending Defense awards, war.gov contract days, Treasury cash, EIA and degree
+      days (rrp-gov job).
+    tables:
+      - name: __TABLES__
+        description: BigQuery table metadata for the dataset (last_modified_time per table); free to read.
+      - name: cot
+        description: 'CFTC Commitments of Traders, every market: financial futures (TFF, ~150 markets) and disaggregated commodities
+          (~650), futures only, since June 2006. Source: rrp-sec Cloud Run job (cloud/feeds code, SEC sources), hourly at
+          :05 (CFTC Socrata API). Updates: Fridays after the 3:30 PM ET release, plus a daily 7 AM ET check for holiday-shifted
+          releases and revisions. One row: one report x market-week. Notes: raw_json holds the full CFTC record (most of the
+          table''s 1.5 GB): select named columns, or read through rrp.gov_cot.'
+      - name: degree_days
+        description: 'NOAA CPC daily heating and cooling degree days by census division and CONUS, population / gas / electric
+          weighted. Source: rrp-markets-equities Cloud Run job (cloud/market code), weekdays 22:20 UTC (NOAA CPC files). Updates:
+          weekdays. One row: one region x kind x weights x day. Notes: 2000 on. Read through rrp.degree_days.'
+      - name: dod_awards
+        description: 'Defense contract transactions on awards of $100M or more from USAspending (all modifications of those
+          awards, including de-obligations). Source: rrp-sec Cloud Run job (cloud/feeds code, SEC sources), hourly at :05.
+          Updates: daily (last 180 days re-pulled). One row: one transaction. Notes: Sep 2024 on; ~90-day posting delay.'
+      - name: eia_grid
+        description: 'EIA Form 930 electricity: daily demand, forecast, generation, interchange and fuel mix by area (2019
+          on), hourly for the last ~3 days. Source: rrp-markets-equities Cloud Run job (cloud/market code), weekdays 22:20
+          UTC (EIA API v2). Updates: weekdays. One row: one area x series x day (or hour). Notes: Read through rrp.grid_*.'
+      - name: eia_weekly
+        description: 'EIA weekly series: natural gas storage and petroleum status. Source: rrp-markets-equities Cloud Run
+          job (cloud/market code), weekdays 22:20 UTC (EIA API v2). Updates: weekly. One row: one series x week. Notes: Rebuilt
+          without duplicates 2026-10-26. Read through rrp.eia_weekly.'
+      - name: treasury_dts
+        description: 'Daily Treasury Statement tables (operating cash, deposits and withdrawals, debt transactions, debt subject
+          to limit, tax deposits). Source: rrp-markets-equities Cloud Run job (cloud/market code), weekdays 22:20 UTC (Fiscal
+          Data API). Updates: weekdays. One row: one table line per business day. Notes: Oct 2005 on. Read through rrp.treasury_*.'
+      - name: war_contract_days
+        description: 'war.gov daily contracts pages from the RSS feed. Source: rrp-sec Cloud Run job (cloud/feeds code, SEC
+          sources), hourly at :05. Updates: 11:05 and 23:05 UTC. One row: one contracts day. Notes: From Aug 14, 2026 (the
+          RSS holds the last 30 pages).'
+  - name: markets
+    database: '{{ env_var(''GCP_PROJECT'') }}'
+    schema: markets
+    description: Crypto, stablecoin, equity and macro data loaded by the rrp-markets jobs (Treasury yields by rrp-gov), plus
+      the pre-warehouse yield and stablecoin history.
+    tables:
+      - name: __TABLES__
+        description: BigQuery table metadata for the dataset (last_modified_time per table); free to read.
+      - name: btc_fees
+        description: 'Bitcoin network fee rates (mempool.space). Source: rrp-markets Cloud Run job (cloud/market code), every
+          30 min. Updates: every 15 min. One row: one reading.'
+      - name: coinbase_4h_redwood_history
+        description: 'Frozen copy of an earlier project''s raw 4h Coinbase bars (Dec 25, 2025 on), taken Oct 27. Source: earlier_project.raw_ohlcv
+          (one-time CTAS). Updates: none (re-copy the tail at cutover). One row: one raw load row (dedupe symbol + event_time,
+          newest ingest_time). Notes: 357,029 rows, 408 symbols, 249,399 unique bars; symbol is BTC/USD style.'
+      - name: crypto_daily
+        description: 'Daily OHLCV for every Kraken and Coinbase USD pair. Source: rrp-markets Cloud Run job (cloud/market
+          code), every 30 min (--crypto-daily). Updates: daily 00:15 UTC. One row: one venue-pair-day. Notes: Includes 77
+          Kraken candles (Oct 4-10 2024) folded in from the retired prices seed.'
+        data_tests:
+          - unique_combination:
+              arguments:
+                columns:
+                  - venue
+                  - pair
+                  - date
+              config:
+                where: date >= date_sub(current_date(), interval 30 day)
+        config:
+          loaded_at_field: cast(date as timestamp)
+          freshness:
+            warn_after:
+              count: 30
+              period: hour
+            error_after:
+              count: 54
+              period: hour
+            filter: date >= date_sub(current_date(), interval 10 day)
+      - name: crypto_derivs
+        description: 'Deribit BTC / ETH perpetuals: funding, open interest. Source: rrp-markets Cloud Run job (cloud/market
+          code), every 30 min. Updates: every 15 min. One row: one reading.'
+      - name: crypto_fear_greed
+        description: 'Crypto Fear & Greed index (alternative.me). Source: rrp-markets Cloud Run job (cloud/market code), every
+          30 min. Updates: hourly check, daily value. One row: one day.'
+        columns:
+          - name: date
+            data_tests:
+              - unique
+              - not_null
+      - name: crypto_global
+        description: 'Total crypto market cap and dominance (CoinPaprika). Source: rrp-markets Cloud Run job (cloud/market
+          code), every 30 min. Updates: every 15 min. One row: one reading.'
+      - name: crypto_indicators_daily
+        description: 'MA20, MA50, RSI14 per core coin per day. Source: rrp-markets Cloud Run job (cloud/market code), every
+          30 min. Updates: every 15 min. One row: one coin-day.'
+      - name: crypto_market
+        description: 'CoinPaprika top 2,000 coins. Source: rrp-markets Cloud Run job (cloud/market code), every 30 min. Updates:
+          hourly. One row: one coin per snapshot.'
+      - name: crypto_ohlc
+        description: 'Kraken candles for the 12 core coins (hourly and daily). Source: rrp-markets Cloud Run job (cloud/market
+          code), every 30 min. Updates: every 15 min. One row: one coin-interval-bar.'
+      - name: crypto_orderbook
+        description: 'Hourly order-book snapshot for the top 150 Coinbase USD coins by 24h dollar volume: best bid and ask,
+          mid, spread ($ and basis points), bid and ask depth over the top 20 levels (coin units and dollars) and order-book
+          imbalance. Source: Coinbase Advanced Trade public product book (50 levels; measures over the top 20), rrp-market
+          first run of each hour. Updates: hourly. One row: one coin x snapshot (append; ts = the book''s own time). Notes:
+          Added Oct 27 to take over from an earlier project''s order-book feed; ob_imbalance, depth_bid, depth_ask and spread
+          match the earlier definitions (markets.crypto_orderbook_history). Stablecoins excluded.'
+      - name: crypto_orderbook_history
+        description: 'Frozen copy of an earlier project''s order-book snapshots: order-book imbalance, bid and ask depth,
+          and spread for ~409 Coinbase coins every 4 hours (Jun 25, 2026 on), taken Oct 27 before Redwood''s shutdown. Source:
+          earlier_project.raw_microstructure (one-time CTAS). Updates: none (the rrp-market order-book feed takes over). One
+          row: one snapshot row (dedupe symbol + event_time, newest ingest_time). Notes: 110,703 rows, 409 symbols; symbol
+          is BTC/USD style. The cvd and liquidation columns were never filled and were dropped.'
+      - name: crypto_spot
+        description: 'Spot prices from Kraken and Coinbase. Source: rrp-markets Cloud Run job (cloud/market code), every 30
+          min. Updates: every 15 min. One row: one reading.'
+        config:
+          loaded_at_field: ts
+          freshness:
+            warn_after:
+              count: 2
+              period: hour
+            error_after:
+              count: 6
+              period: hour
+            filter: ts >= timestamp_sub(current_timestamp(), interval 2 day)
+      - name: crypto_trending
+        description: 'Coinbase trending coins. Source: rrp-markets Cloud Run job (cloud/market code), every 30 min. Updates:
+          every 15 min. One row: one coin per reading.'
+      - name: equity_daily
+        description: 'Daily US equity and ETF bars. Source: rrp-markets Cloud Run job (cloud/market code), every 30 min (--equities-only).
+          Updates: weekdays 22:20 UTC. One row: one ticker-day.'
+        data_tests:
+          - unique_combination:
+              arguments:
+                columns:
+                  - symbol
+                  - date
+              config:
+                where: date >= date_sub(current_date(), interval 30 day)
+        config:
+          loaded_at_field: ingested_at
+          freshness:
+            warn_after:
+              count: 4
+              period: day
+            error_after:
+              count: 6
+              period: day
+            filter: date >= date_sub(current_date(), interval 10 day)
+      - name: equity_universe
+        description: 'Nasdaq Trader symbol directory, every US-listed symbol. Source: rrp-markets Cloud Run job (cloud/market
+          code), every 30 min (--equities-only). Updates: weekdays. One row: one symbol per day.'
+      - name: etf_flows
+        description: 'US spot BTC, ETH and SOL ETF net flows, US$ millions, per fund per trading day plus Farside''s TOTAL.
+          Source: rrp-markets Cloud Run job (cloud/market code), every 30 min (Farside). Updates: hourly. One row: one asset
+          x fund x trading day.'
+      - name: etf_shares
+        description: 'ETF NAV, shares outstanding and total net assets per day: 32 SPDR funds, GLD, VanEck GDX / GDXJ / SMH,
+          every iShares ETF. Source: rrp-markets-equities Cloud Run job (cloud/market code), weekdays 22:20 UTC (SSGA navhist,
+          SPDR Gold archive, VanEck, iShares screener). Updates: weekdays. One row: one ETF x day. Notes: History from 2005
+          / inception except iShares (from 2026-10-23). Read through rrp.etf_share_flows.'
+      - name: funding_rates
+        description: 'Perpetual futures funding rates, every funding period, Kraken Futures (all PF_ perps, plus PI_ BTC/ETH
+          back to 2018). Source: rrp-markets Cloud Run job (cloud/market code), every 30 min (Kraken Futures historicalfundingrates).
+          Updates: daily at 00:15 UTC (last 3 days); --only funding_history for the full history. One row: one instrument
+          x funding period.'
+        data_tests:
+          - unique_combination:
+              arguments:
+                columns:
+                  - venue
+                  - instrument
+                  - ts
+              config:
+                where: ts >= timestamp_sub(current_timestamp(), interval 30 day)
+      - name: history_stablecoins
+        description: 'USDT / USDC / DAI daily supply, 2017 to Sep 27 2026 (pre-warehouse history). Source: RRP History seed;
+          Sep 25-27 2026 from DefiLlama''s daily chart. Updates: static. One row: one coin-day. Notes: rrp.stablecoins_daily
+          uses it before the live feed starts.'
+      - name: history_yields
+        description: 'Treasury 2Y / 10Y / 30Y daily yields, 1962 to Sep 24 2026 (pre-warehouse history). Source: RRP History
+          seed. Updates: static. One row: one day. Notes: rrp.yields_daily uses it before 1990.'
+      - name: macro
+        description: 'Benchmark closes: Treasury yields, indexes, VIX, commodities, FX. Source: rrp-markets Cloud Run job
+          (cloud/market code), every 30 min (Treasury, Cboe, FRED, LBMA, Yahoo). Updates: hourly. One row: one benchmark-day
+          per source.'
+        data_tests:
+          - unique_combination:
+              arguments:
+                columns:
+                  - source
+                  - series
+                  - obs_date
+              config:
+                where: obs_date >= date_sub(current_date(), interval 30 day)
+      - name: short_interest
+        description: 'FINRA equity short interest per symbol per settlement date. Source: rrp-markets-equities Cloud Run job
+          (cloud/market code), weekdays 22:20 UTC (FINRA API). Updates: twice a month. One row: one symbol x settlement date.
+          Notes: Dec 2017 on (exchange-listed from Jun 2021). Read through rrp.short_interest.'
+      - name: short_volume
+        description: 'FINRA Reg SHO daily short sale volume (consolidated NMS file). Source: rrp-markets-equities Cloud Run
+          job (cloud/market code), weekdays 22:20 UTC (FINRA CDN files). Updates: weekdays. One row: one symbol x day. Notes:
+          Aug 2018 on. Read through rrp.short_volume.'
+      - name: stablecoins
+        description: 'Stablecoin circulating supply, every coin DefiLlama tracks. Source: rrp-markets Cloud Run job (cloud/market
+          code), every 30 min (DefiLlama). Updates: hourly. One row: one coin per reading.'
+  - name: ops
+    database: '{{ env_var(''GCP_PROJECT'') }}'
+    schema: ops
+    description: 'Run logs of the ingest jobs (one row per source per run): feeds_runs for the cloud/feeds code (rrp-sec,
+      rrp-gov), market_runs for the cloud/market code (rrp-markets*, rrp-gov).'
+    tables:
+      - name: edgar_index_counts
+        description: 'Filing count per form type in each EDGAR daily form index (distinct accessions and index lines). Source:
+          rrp-feeds Cloud Run job (cloud/feeds), edgar_index step. Updates: 08:05 and 11:05 UTC, last 14 days re-read. One
+          row: one day x form. Notes: Added Oct 27: the reference side of rrp.edgar_completeness.'
+      - name: feeds_runs
+        description: 'Run log of the cloud/feeds code (rrp-sec; rrp-gov for cot, dod, war_rss): one row per source per run.
+          Source: rrp-sec Cloud Run job (cloud/feeds code, SEC sources), hourly at :05. Updates: hourly. One row: one source
+          run.'
+        columns:
+          - name: ts
+            data_tests:
+              - not_null
+          - name: source
+            data_tests:
+              - not_null
+        config:
+          loaded_at_field: ts
+          freshness:
+            warn_after:
+              count: 2
+              period: hour
+            error_after:
+              count: 6
+              period: hour
+            filter: ts >= timestamp_sub(current_timestamp(), interval 2 day)
+      - name: market_runs
+        description: 'Run log of the cloud/market code (rrp-markets jobs; rrp-gov for Treasury, EIA, NOAA): one row per source
+          per run. Source: rrp-markets Cloud Run job (cloud/market code), every 30 min. Updates: every 30 min. One row: one
+          source run.'
+        columns:
+          - name: ts
+            data_tests:
+              - not_null
+          - name: source
+            data_tests:
+              - not_null
+        config:
+          loaded_at_field: ts
+          freshness:
+            warn_after:
+              count: 2
+              period: hour
+            error_after:
+              count: 6
+              period: hour
+            filter: ts >= timestamp_sub(current_timestamp(), interval 2 day)

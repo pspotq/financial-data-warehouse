@@ -1,0 +1,58 @@
+version: 2
+models:
+  - name: degree_days
+    description: 'NOAA CPC daily heating / cooling degree days by region with 7-day sum, a year ago and the 10-year normal.
+      Source: gov.degree_days. Updates: weekdays 22:20 UTC (~2-day lag). One row: one region x kind x weights x day. Notes:
+      region = ''CONUS'', weights = ''gas'' for the gas-demand series.'
+  - name: eia_weekly
+    description: 'EIA weekly natural gas storage and petroleum status with weekly change, change vs a year ago, 5-year average
+      and % vs it. Source: gov.eia_weekly. Updates: weekly (petroleum Wed, gas Thu). One row: one series x week. Notes: avg_5y
+      = same ISO week, 5 prior years.'
+  - name: gov_cot
+    description: 'CFTC Commitments of Traders, every market: net positions and week-over-week change; is_major marks the ~41
+      benchmark markets. Source: gov.cot. Updates: weekly release (Fridays). One row: one market-week. Notes: From 2006 (BTC
+      2018, ETH 2021).'
+  - name: gov_dod_awards
+    description: 'Defense contract transactions on awards of $100M or more (every modification of such an award, including
+      small and negative ones). Source: gov.dod_awards. Updates: daily. One row: one transaction. Notes: USAspending posts
+      with about a 90-day delay. Filter amount_usd for large single transactions (~2% of rows are $100M+).'
+  - name: gov_war_days
+    description: 'Each business day''s war.gov contracts page. Source: gov.war_contract_days. Updates: 11:05 and 23:05 UTC.
+      One row: one contracts day.'
+  - name: grid_daily
+    description: 'US electricity per day and region / balancing authority: demand, forecast, net generation, interchange,
+      demand vs a year ago (MWh). Source: gov.eia_grid. Updates: weekdays 22:20 UTC. One row: one area x day. Notes: The latest
+      days can be revised.'
+  - name: grid_fuel_mix
+    description: 'US electricity generation by fuel per day and area with each fuel''s share. Source: gov.eia_grid. Updates:
+      weekdays 22:20 UTC. One row: one area x fuel x day. Notes: Battery and some hybrids split out only from Nov 2024.'
+  - name: grid_hourly
+    description: 'Hourly US48 and regional electricity demand and generation by fuel, last ~3 days. Source: gov.eia_grid.
+      Updates: weekdays 22:20 UTC. One row: one area x series x hour.'
+  - name: macro_daily
+    description: 'Every benchmark close by market date and source: Treasury yields, indexes, VIX, commodities, FX. Source:
+      markets.macro. Updates: every 15 min. One row: one benchmark-day per source.'
+  - name: macro_latest
+    description: 'Newest observation per benchmark with its change. Source: markets.macro. Updates: computed when read. One
+      row: one benchmark.'
+  - name: treasury_daily
+    description: 'Daily Treasury Statement per business day: TGA cash and change, debt issues / redemptions, tax receipts
+      ($ millions). Source: gov.treasury_dts. Updates: weekdays 22:20 UTC. One row: one business day. Notes: tax_receipts
+      only from Feb 14 2023 (statement redesign).'
+  - name: treasury_debt_limit
+    description: 'Federal debt subject to the limit, the statutory limit and headroom per business day ($ millions). Source:
+      gov.treasury_dts. Updates: weekdays 22:20 UTC. One row: one business day. Notes: statutory_limit NULL while the limit
+      is suspended.'
+  - name: treasury_flows
+    description: 'Every DTS deposit and withdrawal line ($ millions). Source: gov.treasury_dts. Updates: weekdays 22:20 UTC.
+      One row: one day x account x direction x category. Notes: Category names changed Oct 2021 and Feb 2023: compare within
+      one era.'
+  - name: treasury_tax_deposits
+    description: 'DTS federal tax deposits by type, Oct 2005 to Feb 13 2023 (table retired). Source: gov.treasury_dts. Updates:
+      static. One row: one day x tax type.'
+  - name: yields_daily
+    description: 'US Treasury 2Y / 10Y / 30Y yields, one row per day since 1962. Source: markets.history_yields before 1990
+      + markets.macro (Treasury) from 1990. Updates: daily. One row: one market day.'
+  - name: yields_records
+    description: '2Y / 10Y / 30Y Treasury: newest close, bp change, YTD bp, highest/lowest since. Source: rrp.yields_daily.
+      Updates: daily. One row: one tenor.'

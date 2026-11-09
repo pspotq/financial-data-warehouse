@@ -1,0 +1,67 @@
+version: 2
+models:
+  - name: cik_tickers
+    description: 'Every CIK-to-ticker mapping seen since the daily snapshots began, with first/last day seen and whether it
+      is current. Source: sec.cik_tickers. Updates: daily. One row: one company x ticker.'
+  - name: cusip_map
+    description: 'CUSIP (8-char issue) -> SEC CIK, issuer name and ticker, from 13G filings plus OpenFIGI lookups for the
+      rest. Source: rrp.form13g, sec.cusip_figi, rrp.cik_tickers. Updates: computed when read. One row: one cusip8. Notes:
+      Join rrp.form13f_* ON cusip8 = SUBSTR(cusip, 1, 8). source = ''13g'' or ''figi'' (US-listed equity whose ticker and
+      first name word match a current SEC ticker).'
+  - name: entity_tickers
+    description: 'Point-in-time ticker <-> company (CIK) map since 2006, valid_from / valid_to per company per ticker. Source:
+      sec.form4 + sec.cik_tickers + sec.delistings. Updates: computed when read. One row: one company x ticker. Notes: Who
+      was ''ABC'' on date d: WHERE ticker = ''ABC'' AND d BETWEEN valid_from AND IFNULL(valid_to, CURRENT_DATE()).'
+    columns:
+      - name: ticker
+        data_tests:
+          - not_null
+      - name: cik
+        data_tests:
+          - not_null
+  - name: filing_index
+    description: 'Every EDGAR filing, one row per filing: form, filing date, every party CIK and name, and the full-text streams
+      that matched it as tags. Source: sec.filing_index (EDGAR daily and quarterly form indexes, 1993 on) + sec.filing_hits.
+      Updates: daily (08:05 / 11:05 UTC). One row: one filing. Notes: Filter on date_filed: both tables are partitioned on
+      it. ~25M filings. streams = [] for filings no full-text stream matched.'
+  - name: redemptions
+    description: 'Calls and redemptions of an issuer''s own notes, preferred or warrants announced in 8-Ks, newest extractor
+      version. Source: sec.redemption_terms. Updates: daily 08:05 UTC. One row: one filing. Notes: Security and date are reliable;
+      amount_usd can be the series size: check the filing before quoting it.'
+  - name: sec_company_latest
+    description: 'Newest reported balance sheet per company: shares, float, cash, short-term investments, debt, assets, liabilities,
+      equity. Source: sec.xbrl_facts. Updates: computed when read. One row: one company.'
+  - name: sec_delistings
+    description: 'Delisting (Form 25) and deregistration (Form 15) filings by company, with the issuer''s last Form 4 ticker.
+      Source: sec.delistings + sec.form4. Updates: daily. One row: one filing x company. Notes: A Form 25 can cover notes
+      or preferred rather than common stock.'
+  - name: sec_docs
+    description: 'Text of the filings behind the hits and of every Form 4 with a purchase or sale. Source: sec.filing_docs.
+      Updates: hourly. One row: one document (newest fetch). Notes: doc_type INDEX = the document list; FORM4_XML = Form 4
+      XML; else the EDGAR type. Text cut at 500,000 characters (truncated flag).'
+  - name: sec_filings
+    description: 'EDGAR full-text search hits, one row per filing per stream. Source: sec.filing_hits. Updates: hourly. One
+      row: one filing x stream. Notes: doc_url opens the matched document, index_url the filing index.'
+  - name: sec_filings_new
+    description: 'Hits first seen in the last 26 hours and filed in the last 3 days. Source: rrp.sec_filings. Updates: computed
+      when read. One row: one filing x stream.'
+  - name: sec_shares_outstanding
+    description: 'Shares outstanding per company per report, with the date it became public (known_from). Source: sec.xbrl_facts.
+      Updates: weekly. One row: one company x report. Notes: Cover-page figure preferred; multi-class companies may show one
+      class.'
+  - name: sec_xbrl_facts
+    description: 'Company facts from XBRL filings (shares, cash, debt, revenue ...), every reported value with its filing
+      date. Source: sec.xbrl_facts. Updates: weekly. One row: one company x concept x period x filing.'
+  - name: stake_changes
+    description: 'Every 13D with the same filer''s previous stake in the issuer: pct change, first filing, 10% / 20% crossings,
+      exits. Source: rrp.stakes. Updates: daily 08:05 UTC. One row: one filing.'
+  - name: stakes
+    description: 'Schedule 13D stakes as columns: largest stake, every reporting person, funds source, Item 4 purpose flags,
+      newest extractor version. Source: sec.stake_terms. Updates: daily 08:05 UTC. One row: one filing.'
+  - name: tender_offers
+    description: 'One row per tender offer: the original Schedule TO with what its amendments added (latest expiration, final
+      counts, final price). Source: rrp.tender_terms. Updates: daily 08:05 UTC. One row: one tender offer.'
+  - name: tender_terms
+    description: 'Schedule TO terms as columns (offer kind, price, size, expiration, results on amendments), newest extractor
+      version. Source: sec.tender_terms. Updates: daily 08:05 UTC. One row: one filing. Notes: Hand check: price, expiration,
+      is_final right 93-100%; size about half the time.'

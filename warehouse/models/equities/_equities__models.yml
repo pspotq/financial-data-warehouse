@@ -1,0 +1,28 @@
+version: 2
+models:
+  - name: equity_coverage
+    description: 'The watchlist plus every listed US symbol (no test issues, preferreds, warrants, rights, units). Source:
+      rrp.equity_watchlist + markets.equity_universe. Updates: computed when read. One row: one ticker. Notes: Read by the
+      rrp-market job to choose what to price.'
+  - name: equity_daily
+    description: 'Daily bars for every covered US stock and ETF (adj_close for returns). Source: markets.equity_daily. Updates:
+      weekdays after the close. One row: one ticker-day.'
+    data_tests:
+      - unique_combination:
+          arguments:
+            columns:
+              - symbol
+              - date
+          config:
+            where: date >= date_sub(current_date(), interval 30 day)
+  - name: equity_watchlist
+    description: 'Tickers that must be priced: core ETFs and stocks, the fund universe, insider-buy and filing names. Source:
+      fixed lists + rrp.insider_buys + rrp.sec_filings. Updates: computed when read. One row: one ticker.'
+  - name: short_interest
+    description: 'FINRA short interest twice a month with change, days to cover and % of shares outstanding. Source: markets.short_interest
+      + rrp.sec_shares_outstanding + rrp.cik_tickers. Updates: twice a month (published ~7 business days after settlement).
+      One row: one symbol x settlement date. Notes: pct_of_shares_out is over shares outstanding, not float.'
+  - name: short_volume
+    description: 'FINRA Reg SHO daily short sale volume per symbol with the 20-day average short %. Source: markets.short_volume.
+      Updates: weekdays 22:20 UTC. One row: one symbol x day. Notes: Not short interest; total_volume is FINRA-reported volume
+      only. Compare a stock with its own history.'

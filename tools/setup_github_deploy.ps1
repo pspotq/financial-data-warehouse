@@ -16,7 +16,7 @@ if (-not (gcloud iam service-accounts list --filter="email:$SA" --format="value(
 
 # 2. what it may do: deploy the two Cloud Run jobs from source (Cloud Build, its source bucket, the image registry),
 #    run them as rrp-ingest, rebuild the warehouse views, and read the build logs. It cannot delete tables' data:
-#    bigquery.dataEditor can, but build.py only ever replaces views.
+#    bigquery.dataEditor can, but dbt only ever replaces views.
 foreach ($role in "roles/run.developer", "roles/cloudbuild.builds.editor", "roles/storage.admin", "roles/artifactregistry.writer",
                   "roles/serviceusage.serviceUsageConsumer", "roles/bigquery.dataEditor", "roles/bigquery.jobUser",
                   "roles/secretmanager.viewer", "roles/viewer") {

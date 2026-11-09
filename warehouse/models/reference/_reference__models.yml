@@ -1,0 +1,11 @@
+version: 2
+models:
+  - name: calendar
+    description: 'Every day 2006 to 30 days ahead: NYSE open, EDGAR open, previous trading / filing day. Source: SPY bars,
+      sec.form4 dates, 2026-27 holiday lists. Updates: daily. One row: one date. Notes: *_confirmed = backed by data rather
+      than the holiday list.'
+    columns:
+      - name: date
+        data_tests:
+          - unique
+          - not_null

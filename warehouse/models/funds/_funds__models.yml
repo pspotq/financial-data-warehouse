@@ -1,0 +1,60 @@
+version: 2
+models:
+  - name: adv_firm_months
+    description: 'Every SEC investment adviser per monthly SEC snapshot, Feb 2019 on: kind (registered / exempt), regulatory
+      AUM, accounts, employees, change vs previous snapshot. Source: sec.adv_firms. Updates: monthly SEC file. One row: one
+      firm (CRD) x snapshot month. Notes: Sub-advised money counts for every adviser on it. cik set for ~25% of registered
+      firms.'
+  - name: adv_firms
+    description: 'Every adviser in the newest ADV snapshot with its history: first listed / registered, months listed, AUM
+      a year ago and change, newest 13F. Source: rrp.adv_firm_months + rrp.form13f_managers. Updates: monthly SEC file. One
+      row: one firm. Notes: Reads the whole history (~420 MB). Firms that left are in rrp.adv_firm_months only.'
+  - name: etf_share_flows
+    description: 'Daily creations / redemptions per ETF: change in shares outstanding x NAV, % of assets, 5- and 20-day sums,
+      split-adjusted. Source: markets.etf_shares. Updates: weekdays 22:20 UTC. One row: one ETF x loaded day. Notes: gap_days
+      > 4 = a hole, read as a multi-day total. Flows land a trading day after the trade. Not rrp.etf_flows_daily (crypto,
+      Farside).'
+  - name: form13f_by_security
+    description: 'One row per security (CUSIP) per quarter across all 13F managers: holders, shares, value, call / put value,
+      change vs prior quarter. Source: rrp.form13f_holdings. Updates: daily. One row: one CUSIP x quarter. Notes: Heavy: filter
+      on period or cusip. Parent and sub-adviser can both report a position, so totals overstate.'
+  - name: form13f_holdings
+    description: 'Every 13F holding line per manager per quarter, amendments resolved, 2013 Q3 on, value_usd in dollars. Source:
+      rrp.form13f_reports + sec.form13f_holdings. Updates: daily. One row: one holding line. Notes: Filter on cusip and /
+      or period (clustered on cusip, partitioned by period). put_call set = option (value = underlying). Long US-listed positions
+      only.'
+  - name: form13f_managers
+    description: 'One row per 13F manager per quarter: total value, lines, change vs the previous quarter. Source: rrp.form13f_reports.
+      Updates: daily. One row: one manager x quarter. Notes: Cheap (no holdings scan). value_usd = sum of own holding lines;
+      cover_value_usd = as typed.'
+  - name: form13f_position_changes
+    description: 'What each 13F manager bought and sold in its newest quarter: new, exit, added, cut per security, with shares
+      change, rough trade size and portfolio weight. Source: rrp.form13f_holdings + rrp.form13f_managers + rrp.cusip_map.
+      Updates: computed when read. One row: one manager x security ($25M+ now or last quarter). Notes: Only managers that
+      have filed the latest quarter; fills in through the 45-day filing window. Filter on manager / cik or ticker.'
+  - name: form13f_reports
+    description: 'Which 13F filings make up each manager''s holdings per quarter, amendments resolved (base report + NEW HOLDINGS
+      additions; full re-files replace the base). Source: sec.form13f_filings + sec.form13f_totals. Updates: computed when
+      read. One row: one filing x manager x quarter (role base / added). Notes: holdings_value_usd = the sum of the filing''s
+      own lines: use it. value_total_usd = the cover total as typed (some typos). Norges Bank files a placeholder then a /A:
+      ~$0 until it lands.'
+  - name: form13g
+    description: 'Every Schedule 13G / 13G/A (passive owner over 5%), structured filings, with the filer''s previous pct and
+      an exit flag. Source: sec.form13g + rrp.entity_tickers. Updates: daily. One row: one filing. Notes: cusip8 = the safe
+      key to rrp.form13f_*. ticker = the issuer''s ticker on the filing date.'
+  - name: form144
+    description: 'Every Form 144 / 144/A (notice of a proposed insider or affiliate sale), 2025 on, with implied price, %
+      of outstanding and the 10b5-1 plan flag. Source: sec.form144 + rrp.entity_tickers. Updates: daily. One row: one security
+      line. Notes: value_suspect = implied price over $10,000 a share: leave out of sums. An intention, not a trade.'
+  - name: formd
+    description: 'Every Form D / D/A (exempt offering: private raises, new hedge / PE / VC / crypto funds), 2008 on. Source:
+      sec.formd. Updates: daily. One row: one filing. Notes: new_offering = original D. fund_type set for pooled funds. total_offering
+      NULL when indefinite.'
+  - name: fund_etf_map
+    description: 'Fidelity fund -> the ETF that tracks it most closely (proxy_etf, secondary_etf) with 1-year correlation,
+      beta and fit. Source: hand map in the model SQL + markets.equity_daily. Updates: computed when read. One row: one fund. Notes:
+      fit strong >= 0.90, moderate >= 0.80, else weak.'
+  - name: fund_flows
+    description: 'Daily ETF flows standing in for each mapped Fidelity fund (proxy ETF, else the secondary). Source: rrp.fund_etf_map
+      + rrp.etf_share_flows. Updates: weekdays 22:20 UTC. One row: one fund x day. Notes: The ETF''s flows, not the mutual
+      fund''s. Read weak-fit rows as context only.'

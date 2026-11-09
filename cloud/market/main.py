@@ -2,7 +2,7 @@
 
 Runs as the Cloud Run job `rrp-market`. A failing source never stops the others, and the job always exits 0 so
 Cloud Run does not retry and double-insert snapshot rows. The rrp.* views over these tables are built by
-warehouse/build.py, not here. Schedules (Cloud Scheduler, see deploy.ps1):
+the dbt models in warehouse/, not here. Schedules (Cloud Scheduler, see deploy.ps1):
   rrp-market-15m           every 30 min   crypto spot, hourly/daily OHLC + indicators, derivatives, global, trending,
                                           BTC fees; first run of each hour also stablecoins, Fear & Greed, macro
                                           (FRED, Treasury, Cboe, Yahoo), the CoinPaprika top-2,000 snapshot and

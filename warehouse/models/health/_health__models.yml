@@ -1,0 +1,38 @@
+version: 2
+models:
+  - name: alerts
+    description: 'What should page the phone now: stale sources with no good pull for 2 hours and tables past their grace
+      window. Source: health_feeds, health_market, __TABLES__ metadata. Updates: computed when read. One row: one RED item.
+      Notes: Read hourly by the rrp-markets job, which logs the result for Cloud Monitoring. Empty = all clear.'
+    columns:
+      - name: kind
+        data_tests:
+          - accepted_values:
+              arguments:
+                values:
+                  - source
+                  - table
+      - name: item
+        data_tests:
+          - not_null
+  - name: edgar_completeness
+    description: 'What EDGAR published vs what the warehouse loaded, per business day and filing family (Form D, 13F, 144,
+      13G, delistings; Form 4 per day). Source: ops.edgar_index_counts, sec.formd, sec.form13f_filings, sec.form144, sec.form13g,
+      sec.delistings, sec.form4. Updates: computed when read. One row: one family x filing day. Notes: Shortfalls inside 5
+      business days are AMBER (the loaders re-read 5 days); older ones RED.'
+  - name: health_feeds
+    description: 'Latest result per rrp-feeds source and whether it is stale. Source: ops.feeds_runs. Updates: computed when
+      read. One row: one source. Notes: stale = no successful run in 3 hours (dod: 30 hours).'
+    columns:
+      - name: source
+        data_tests:
+          - unique
+          - not_null
+  - name: health_market
+    description: 'Latest result per rrp-market source and whether it is stale. Source: ops.market_runs. Updates: computed
+      when read. One row: one source.'
+    columns:
+      - name: source
+        data_tests:
+          - unique
+          - not_null

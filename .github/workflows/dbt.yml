@@ -1,0 +1,57 @@
+# dbt checks on every push and pull request, and the docs site (models, sources, tests, lineage graph) published to
+# GitHub Pages from main. Nothing here touches BigQuery: dbt only needs a key file to build its client, so CI makes a
+# throwaway one that is never used to connect (--no-populate-cache skips every warehouse lookup).
+name: dbt
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: warehouse
+    env:
+      GCP_PROJECT: example-project
+      DBT_PROFILES_DIR: .
+      GOOGLE_APPLICATION_CREDENTIALS: ${{ runner.temp }}/offline_sa.json
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: throwaway key (offline compile only)
+        run: |
+          openssl genrsa -out "$RUNNER_TEMP/k.pem" 2048
+          python -c "import json,os; json.dump({'type':'service_account','project_id':'example-project','private_key_id':'0','private_key':open(os.environ['RUNNER_TEMP']+'/k.pem').read(),'client_email':'offline@example-project.iam.gserviceaccount.com','client_id':'0','token_uri':'https://oauth2.googleapis.com/token'}, open(os.environ['GOOGLE_APPLICATION_CREDENTIALS'],'w'))"
+      - run: dbt parse --no-partial-parse --warn-error
+      - run: dbt compile --no-populate-cache
+      - run: dbt docs generate --no-populate-cache --empty-catalog --static
+      - run: mkdir -p ../site && cp target/static_index.html ../site/index.html
+      - if: github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
